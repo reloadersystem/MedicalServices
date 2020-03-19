@@ -22,15 +22,14 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-
         tvSplash = findViewById(R.id.tvSplash);
         ivLogo = findViewById(R.id.ivLogo);
 
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
-        ivLogo.startAnimation(animation);
         tvSplash.startAnimation(animation);
-        
+        ivLogo.startAnimation(animation);
+
+
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

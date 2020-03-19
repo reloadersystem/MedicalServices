@@ -13,16 +13,18 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="150dp"
-        android:src="@drawable/logo_splash" />
+        android:src="@drawable/logo_splash"
+
+        />
 
     <TextView
         android:id="@+id/tvSplash"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/roboto_medium"
-        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="18sp"
-        tools:text="Bienvenido" />
+        android:text="Service Medical"/>
 </LinearLayout>
