@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bm_productos"
+        android:icon="@drawable/products_icon"
+        android:title="Productos" />
+
+    <item
+        android:id="@+id/bm_servicios"
+        android:icon="@drawable/ic_servicios"
+        android:title="Servicios" />
+
+    <item
+        android:id="@+id/bm_pedidos"
+        android:checked="true"
+        android:icon="@drawable/ic_pedidos"
+        android:title="Mis Pedidos" />
+    <item
+        android:id="@+id/profileMenu"
+        android:icon="@drawable/ic_perfil"
+        android:title="Mi Perfil" />
+</menu>

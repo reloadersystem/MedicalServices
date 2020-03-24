@@ -21,10 +21,10 @@
         android:id="@+id/tvSplash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/roboto_medium"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/rajdhanibold"
+        android:text="MiVida"
         android:textColor="@android:color/holo_blue_dark"
-        android:textSize="18sp"
-        android:text="Service Medical"/>
+        android:textSize="25sp" />
 </LinearLayout>

@@ -8,6 +8,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.salud.medicalservices.R;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class SendPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -19,9 +20,13 @@ public class SendPasswordActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_password);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         btn_enviar = findViewById(R.id.btn_enviar);
         txt_email = findViewById(R.id.edt_email);
-
         btn_enviar.setOnClickListener(this);
     }
 
@@ -38,4 +43,11 @@ public class SendPasswordActivity extends AppCompatActivity implements View.OnCl
                 break;
         }
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
+    }
+
 }

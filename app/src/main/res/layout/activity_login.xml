@@ -23,8 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:fontFamily="@font/roboto_medium"
-            android:text="SERVICE MEDICAL"
+            android:fontFamily="@font/rajdhanibold"
+            android:text="MiVida"
             android:textColor="@android:color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -136,7 +136,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
-            android:enabled="false"
             android:fontFamily="@font/roboto_medium"
             android:text="INGRESAR"
             android:textAllCaps="false" />
