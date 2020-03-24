@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.salud.medicalservices.R;
@@ -22,12 +23,13 @@ public class RecyclerProductosAdapter extends RecyclerView.Adapter<RecyclerProdu
     private List<ItemServicios> mlistCursos;
     OnProductosListener onProductosListener;
 
-    public void setOnCursosListenerDiapositivas(OnProductosListener onProductosListener) {
+    public void setOnProductosListener(OnProductosListener onProductosListener) {
         this.onProductosListener = onProductosListener;
     }
-    public RecyclerProductosAdapter(Context mContext, List<ItemServicios> mlistCursos) {
+
+    public RecyclerProductosAdapter(Context mContext, List<ItemServicios> mItemServicios) {
         this.mContext = mContext;
-        this.mlistCursos = mlistCursos;
+        this.mlistCursos = mItemServicios;
     }
 
     @NonNull
@@ -53,19 +55,21 @@ public class RecyclerProductosAdapter extends RecyclerView.Adapter<RecyclerProdu
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView  img_recursoproducto;
+        private ImageView img_recursoproducto;
         private TextView tvDescription;
+        private LinearLayout ln_categoria;
+
 
         public MyViewHolder(@NonNull View itemView, final OnProductosListener onProductosListener) {
             super(itemView);
 
             img_recursoproducto = itemView.findViewById(R.id.img_recursoproducto);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            ln_categoria = itemView.findViewById(R.id.ln_categoria);
 
-            img_recursoproducto.setOnClickListener(new View.OnClickListener() {
+            ln_categoria.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     int posicion = getAdapterPosition();
                     onProductosListener.onImagenClicked(posicion);
 
