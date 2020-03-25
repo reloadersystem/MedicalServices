@@ -83,6 +83,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ln_numpedido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ln_descripcion"
@@ -129,16 +130,22 @@
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true"
                 android:layout_marginRight="5dp"
+
                 >
 
-                <Button
-                    android:id="@+id/btn_categoria"
+                <Spinner
+                    android:id="@+id/spn_empaque"
+                    android:textDirection="locale"
                     android:layout_width="match_parent"
-                    android:text="1 Sobre"
-                    android:textColor="@color/colorAccent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    ></Button>
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical"
+                    style="@style/spinner_style"
+                    android:background="@drawable/background_spinner"
+                    android:entries="@array/empaque"
+                    android:spinnerMode="dropdown"
+                    android:text="1 Sobre"
+                    android:textColor="@color/colorAccent"></Spinner>
 
             </androidx.cardview.widget.CardView>
 
@@ -175,4 +182,39 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ln_numpedido"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:text="Presentación:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+        <TextView
+            android:text="Comprimidos x8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:text="Acción Farmacológica:"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+        <TextView
+            android:text="Analgésico Antiinflam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"></TextView>
+
+
+
+       </LinearLayout>
 </RelativeLayout>

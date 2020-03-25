@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.salud.medicalservices.R;
@@ -27,6 +29,8 @@ public class InfoProductoActivity extends AppCompatActivity {
 
     TextView txt_countBadge;
 
+    Spinner spn_empaque;
+
     int count = 0;
 
     @Override
@@ -44,6 +48,7 @@ public class InfoProductoActivity extends AppCompatActivity {
 
         ibtn_agregar = findViewById(R.id.ibtn_mas);
         ibtn_menos = findViewById(R.id.ibtn_menos);
+        spn_empaque = findViewById(R.id.spn_empaque);
 
 
         setSupportActionBar(toolbar);
@@ -85,6 +90,11 @@ public class InfoProductoActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
+
+
     }
 
     @Override
