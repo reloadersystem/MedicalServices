@@ -32,4 +32,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
 
+    //Gson Converter
+
+    implementation 'com.google.code.gson:gson:2.8.0'
+
 }

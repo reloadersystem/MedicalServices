@@ -1,5 +1,6 @@
 package com.salud.medicalservices.contenedores;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -24,6 +25,7 @@ public class ContentMainActivity extends AppCompatActivity {
     PedidosFragment pedidosFragment;
     PerfilFragment perfilFragment;
     BottomNavigationView mNavigationBottom;
+    String fragmentSelected = "";
 
     private int mSelectedItem;
 
@@ -43,7 +45,22 @@ public class ContentMainActivity extends AppCompatActivity {
         perfilFragment = new PerfilFragment();
 
 
-        setFragment(productosFragment);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            fragmentSelected = bundle.getString("fragmentSelected");
+        }
+        if (fragmentSelected.equalsIgnoreCase("ServiciosFragment")) {
+
+            MenuItem ServiceItem = mNavigationBottom.getMenu().getItem(2);
+            Fragment fragment = new ServiciosFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+            mNavigationBottom.setSelectedItemId(ServiceItem.getItemId());
+
+        } else {
+            setFragment(productosFragment);
+        }
+
 
         mNavigationBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -89,7 +106,6 @@ public class ContentMainActivity extends AppCompatActivity {
 
             Fragment fragment = new ProductosFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
-            // Select home item
             mNavigationBottom.setSelectedItemId(homeItem.getItemId());
         } else {
             super.onBackPressed();
