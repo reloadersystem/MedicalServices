@@ -110,7 +110,7 @@
                 >
 
                 <ImageButton
-                    android:id="@+id/btn_menos"
+                    android:id="@+id/ibtn_menos"
                     android:text="-"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
@@ -154,7 +154,7 @@
                 >
 
                 <ImageButton
-                    android:id="@+id/btn_mas"
+                    android:id="@+id/ibtn_mas"
                     android:text="-"
                     android:layout_width="42dp"
                     android:layout_height="42dp"

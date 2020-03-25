@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,10 +23,11 @@ public class InfoProductoActivity extends AppCompatActivity {
     TextView txt_nombreComercial, txt_nombregenerico, txt_nombrelaboratorio, txt_nombreprecio;
 
     ImageView img_infoProducto;
+    ImageButton ibtn_agregar, ibtn_menos;
 
     TextView txt_countBadge;
 
-    int pendinCount = 10;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,10 @@ public class InfoProductoActivity extends AppCompatActivity {
         txt_nombrelaboratorio = findViewById(R.id.txt_nombrelaboratorio);
         txt_nombreprecio = findViewById(R.id.txt_nombreprecio);
         img_infoProducto = findViewById(R.id.img_infoProducto);
+
+        ibtn_agregar = findViewById(R.id.ibtn_mas);
+        ibtn_menos = findViewById(R.id.ibtn_menos);
+
 
         setSupportActionBar(toolbar);
         setTitle("Información del Producto");
@@ -61,6 +67,24 @@ public class InfoProductoActivity extends AppCompatActivity {
         txt_nombrelaboratorio.setText(nombre_laboratorio);
         txt_nombreprecio.setText(precio);
         img_infoProducto.setImageResource(image_producto);
+
+        ibtn_agregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                count = count + 1;
+                txt_countBadge.setText(String.valueOf(count));
+            }
+        });
+        ibtn_menos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (count != 0) {
+                    count = count - 1;
+                    txt_countBadge.setText(String.valueOf(count));
+                }
+            }
+        });
     }
 
     @Override
@@ -74,37 +98,15 @@ public class InfoProductoActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_shop, menu);
 
-        final MenuItem menuItem = menu.findItem(R.id.menu_itemshop);
+        final MenuItem menuItem = menu.findItem(R.id.action_notifications);
 
         View actionview = MenuItemCompat.getActionView(menuItem);
 
-        // TextView txt_countBadge = actionview.findViewById(R.id.txt_countBadge);
+        txt_countBadge = actionview.findViewById(R.id.notification_badge);
 
-        //setupBadge();
-
-//        actionview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onOptionsItemSelected(menuItem);
-//            }
-//        });
 
         return true;
     }
 
-    private void setupBadge() {
-        if (txt_countBadge != null) {
-            if (pendinCount == 0) {
-                if (txt_countBadge.getVisibility() != View.GONE) {
-                    txt_countBadge.setVisibility(View.GONE);
-                } else {
-                    txt_countBadge.setText("86");
-                    if (txt_countBadge.getVisibility() != View.VISIBLE) {
-                        txt_countBadge.setVisibility(View.VISIBLE);
-                    }
-                }
 
-            }
-        }
-    }
 }
