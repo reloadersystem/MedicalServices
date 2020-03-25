@@ -39,6 +39,7 @@
         android:src="@drawable/farmaprod_2" />
 
     <LinearLayout
+        android:id="@+id/ln_descripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_infoProducto"
@@ -51,8 +52,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:fontFamily="@font/futuraheavy"
-            android:textStyle="bold"
             android:textSize="25sp"
+            android:textStyle="bold"
             tools:text="Title" />
 
         <TextView
@@ -80,21 +81,98 @@
 
     </LinearLayout>
 
-    <Button
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/sh_button"
-        android:text="    Agregar a mi lista    "
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ln_descripcion"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100"
+            android:padding="10dp"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="15"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                android:layout_marginRight="5dp"
+                >
+
+                <ImageButton
+                    android:id="@+id/btn_menos"
+                    android:text="-"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/ic_remove"
+                    android:layout_gravity="center"
+                    android:background="@android:color/white"
+                    ></ImageButton>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="70"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                android:layout_marginRight="5dp"
+                >
+
+                <Button
+                    android:id="@+id/btn_categoria"
+                    android:layout_width="match_parent"
+                    android:text="1 Sobre"
+                    android:textColor="@color/colorAccent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    ></Button>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="15"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                android:layout_marginRight="5dp"
+                >
+
+                <ImageButton
+                    android:id="@+id/btn_mas"
+                    android:text="-"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/ic_add"
+                    android:layout_gravity="center"
+                    android:background="@android:color/white"
+                    ></ImageButton>
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:src="@drawable/shop_circle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"></ImageView>
 
 
 
-    </Button>
 
 
-
-
-
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
