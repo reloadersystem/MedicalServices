@@ -8,6 +8,7 @@ import com.salud.medicalservices.R;
 import com.salud.medicalservices.adapters.RecyclerDetalleProductosAdapter;
 import com.salud.medicalservices.data.ObjectDataClass;
 import com.salud.medicalservices.entidades.ItemProductos;
+import com.salud.medicalservices.interfaces.OnProductosDetalleListener;
 
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class DetalleProductoActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             productoName = (String) bundle.get("productoName");
-            img_root =  bundle.getInt("img_root");
+            img_root = bundle.getInt("img_root");
         }
 
         setTitle(productoName);
@@ -52,6 +53,25 @@ public class DetalleProductoActivity extends AppCompatActivity {
         recycler_listprod.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
         recycler_listprod.setHasFixedSize(true);
         recycler_listprod.setAdapter(adapter);
+        adapter.setOnProductosDetalleListener(new OnProductosDetalleListener() {
+            @Override
+            public void onImagenClicked(int position) {
+
+                String nombre_comercial= listProductos.get(position).getNombre_comercial();
+                String nombre_generico= listProductos.get(position).getNombre_generico();
+                String nombre_laboratorio= listProductos.get(position).getNombre_laboratorio();
+                String nombre_presentacion= listProductos.get(position).getNombre_presentacion();
+                String precio= listProductos.get(position).getPrecio();
+
+                Intent intent = new Intent(DetalleProductoActivity.this, InfoProductoActivity.class);
+                intent.putExtra("nombre_comercial", nombre_comercial);
+                intent.putExtra("nombre_generico", nombre_generico);
+                intent.putExtra("nombre_laboratorio", nombre_laboratorio);
+                intent.putExtra("nombre_presentacion", nombre_presentacion);
+                intent.putExtra("precio", precio);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

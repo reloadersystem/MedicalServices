@@ -10,16 +10,14 @@ import android.widget.TextView;
 
 import com.salud.medicalservices.R;
 import com.salud.medicalservices.entidades.ItemProductos;
-import com.salud.medicalservices.entidades.ItemProductos;
 import com.salud.medicalservices.interfaces.OnProductosDetalleListener;
-import com.salud.medicalservices.interfaces.OnProductosListener;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerDetalleProductosAdapter  extends RecyclerView.Adapter<RecyclerDetalleProductosAdapter.MyViewHolder> {
+public class RecyclerDetalleProductosAdapter extends RecyclerView.Adapter<RecyclerDetalleProductosAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<ItemProductos> mlistCursos;
@@ -28,6 +26,7 @@ public class RecyclerDetalleProductosAdapter  extends RecyclerView.Adapter<Recyc
     public void setOnProductosDetalleListener(OnProductosDetalleListener onProductosDetalleListener) {
         this.onProductosDetalleListener = onProductosDetalleListener;
     }
+
     public RecyclerDetalleProductosAdapter(Context mContext, List<ItemProductos> mlistProductos) {
         this.mContext = mContext;
         this.mlistCursos = mlistProductos;
@@ -80,10 +79,9 @@ public class RecyclerDetalleProductosAdapter  extends RecyclerView.Adapter<Recyc
             txt_laboratorio = itemView.findViewById(R.id.txt_laboratorio);
             txt_precio = itemView.findViewById(R.id.txt_precio);
 
-            img_producto.setOnClickListener(new View.OnClickListener() {
+            ln_producto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     int posicion = getAdapterPosition();
                     onProductosDetalleListener.onImagenClicked(posicion);
 
