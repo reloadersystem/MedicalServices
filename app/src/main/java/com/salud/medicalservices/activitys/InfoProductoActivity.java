@@ -1,9 +1,14 @@
 package com.salud.medicalservices.activitys;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -35,7 +40,10 @@ public class InfoProductoActivity extends AppCompatActivity {
     ImageView img_infoProducto, img_carrito;
     ImageButton ibtn_agregar, ibtn_menos;
 
+
     TextView txt_countBadge;
+
+    ImageView image_Badge;
 
     Spinner spn_empaque;
 
@@ -49,6 +57,12 @@ public class InfoProductoActivity extends AppCompatActivity {
 
     DefaultSharedPreferencesHelper sharedPreferencesHelper;
 
+    private ObjectAnimator animatorXini, animatorXend;
+
+    private Animator animatorSet;
+
+    private long animationDuration = 700;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +70,7 @@ public class InfoProductoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info_producto);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_info);
+
 
         txt_nombreComercial = findViewById(R.id.txt_nombreComercial);
         txt_nombregenerico = findViewById(R.id.txt_nombregenerico);
@@ -156,6 +171,7 @@ public class InfoProductoActivity extends AppCompatActivity {
         View actionview = MenuItemCompat.getActionView(menuItem);
 
         txt_countBadge = actionview.findViewById(R.id.notification_badge);
+        image_Badge = actionview.findViewById(R.id.image_badge);
 
         actionview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,17 +190,56 @@ public class InfoProductoActivity extends AppCompatActivity {
 
             case R.id.action_notifications: {
 
-                String unidades = txt_countBadge.getText().toString();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
 
-                app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, image_producto, unidades, dataSpinner);
+                        String unidades = txt_countBadge.getText().toString();
 
-                Intent intent = new Intent(InfoProductoActivity.this, ContentMainActivity.class);
-                intent.putExtra("fragmentSelected", "ServiciosFragment");
-                startActivity(intent);
+                        app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, image_producto, unidades, dataSpinner);
+
+                        Intent intent = new Intent(InfoProductoActivity.this, ContentMainActivity.class);
+                        intent.putExtra("fragmentSelected", "ServiciosFragment");
+                        startActivity(intent);
+                    }
+                }, 1200);
+
+                movRightImage();
+                movRightText();
 
             }
         }
         return super.onOptionsItemSelected(item);
+
+    }
+
+    private void movRightText() {
+
+        animatorXini = ObjectAnimator.ofFloat(txt_countBadge, "x", 80f);
+        animatorXini.setDuration(animationDuration);
+        AnimatorSet animatorSetX = new AnimatorSet();
+        animatorSetX.play(animatorXini);
+        animatorSetX.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                animation.start();
+            }
+        });
+        animatorSetX.start();
+    }
+
+    private void movRightImage() {
+        animatorXini = ObjectAnimator.ofFloat(image_Badge, "x", 60f);
+        animatorXini.setDuration(animationDuration);
+        AnimatorSet animatorSetX = new AnimatorSet();
+        animatorSetX.play(animatorXini);
+        animatorSetX.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                animation.start();
+            }
+        });
+        animatorSetX.start();
 
     }
 
