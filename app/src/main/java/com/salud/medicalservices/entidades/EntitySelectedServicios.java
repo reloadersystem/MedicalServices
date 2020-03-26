@@ -9,20 +9,21 @@ public class EntitySelectedServicios {
     private String nombre_presentacion;
     private String nombre_laboratorio;
     private String precio;
+    private String subtotal;
     private String nombre_empaque;
     private String unidades;
 
-    public EntitySelectedServicios(int imagen_logo, String nombre_comercial, String nombre_generico, String nombre_presentacion, String nombre_laboratorio, String precio, String nombre_empaque, String unidades) {
+    public EntitySelectedServicios(int imagen_logo, String nombre_comercial, String nombre_generico, String nombre_presentacion, String nombre_laboratorio, String precio, String subtotal, String nombre_empaque, String unidades) {
         this.imagen_logo = imagen_logo;
         this.nombre_comercial = nombre_comercial;
         this.nombre_generico = nombre_generico;
         this.nombre_presentacion = nombre_presentacion;
         this.nombre_laboratorio = nombre_laboratorio;
         this.precio = precio;
+        this.subtotal = subtotal;
         this.nombre_empaque = nombre_empaque;
         this.unidades = unidades;
     }
-
 
     public int getImagen_logo() {
         return imagen_logo;
@@ -70,6 +71,14 @@ public class EntitySelectedServicios {
 
     public void setPrecio(String precio) {
         this.precio = precio;
+    }
+
+    public String getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(String subtotal) {
+        this.subtotal = subtotal;
     }
 
     public String getNombre_empaque() {

@@ -43,7 +43,10 @@ public class RecyclerAdapterSelectedServicios extends RecyclerView.Adapter<Recyc
         holder.txt_generico.setText(mServiciosSelectedList.get(position).getNombre_generico());
         holder.txt_presentacion.setText(mServiciosSelectedList.get(position).getNombre_presentacion());
         holder.txt_laboratorio.setText(mServiciosSelectedList.get(position).getNombre_laboratorio());
+        holder.txt_laboratorio.setText(mServiciosSelectedList.get(position).getNombre_laboratorio());
         holder.txt_precio.setText(mServiciosSelectedList.get(position).getPrecio());
+        holder.txt_subTotal.setText(mServiciosSelectedList.get(position).getSubtotal());
+        holder.txt_unidades.setText(mServiciosSelectedList.get(position).getUnidades());
     }
 
     @Override
@@ -51,7 +54,8 @@ public class RecyclerAdapterSelectedServicios extends RecyclerView.Adapter<Recyc
         return mServiciosSelectedList.size();
     }
 
-    public void Update() {
+    public void UpdateClear() {
+        mServiciosSelectedList.clear();
         notifyDataSetChanged();
     }
 
@@ -63,7 +67,9 @@ public class RecyclerAdapterSelectedServicios extends RecyclerView.Adapter<Recyc
         private TextView txt_presentacion;
         private TextView txt_laboratorio;
         private LinearLayout ln_producto;
+        private TextView txt_subTotal;
         private TextView txt_precio;
+        private TextView txt_unidades;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -74,7 +80,9 @@ public class RecyclerAdapterSelectedServicios extends RecyclerView.Adapter<Recyc
             txt_generico = itemView.findViewById(R.id.txt_generico);
             txt_presentacion = itemView.findViewById(R.id.txt_presentacion);
             txt_laboratorio = itemView.findViewById(R.id.txt_laboratorio);
-            txt_precio = itemView.findViewById(R.id.txt_precio);
+            txt_precio = itemView.findViewById(R.id.txt_precioxunidad);
+            txt_subTotal = itemView.findViewById(R.id.txt_subTotal);
+            txt_unidades = itemView.findViewById(R.id.txt_unidades);
 
 //            ln_producto.setOnClickListener(new View.OnClickListener() {
 //                @Override

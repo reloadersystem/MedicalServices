@@ -7,10 +7,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.salud.medicalservices.R;
 import com.salud.medicalservices.adapters.RecyclerAdapterSelectedServicios;
 import com.salud.medicalservices.entidades.EntitySelectedServicios;
+import com.salud.medicalservices.utils.CleanSharePref;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,13 +31,16 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PedidosFragment extends Fragment {
+public class PedidosFragment extends Fragment implements View.OnClickListener {
 
     View rootview;
 
-    List<EntitySelectedServicios> entitySelectedServicios;
-    RecyclerAdapterSelectedServicios recyclerAdapterSelectedServicios;
-    RecyclerView recycler_listSelected;
+    private List<EntitySelectedServicios> entitySelectedServicios;
+    private RecyclerAdapterSelectedServicios recyclerAdapterSelectedServicios;
+    private RecyclerView recycler_listSelected;
+    private Button btn_realizarpedido;
+    private TextView txt_costo;
+    private Double countPrecio = 0.0;
 
 
     public PedidosFragment() {
@@ -50,10 +57,14 @@ public class PedidosFragment extends Fragment {
         getActivity().setTitle("Mi carrito de Compra");
 
         recycler_listSelected = rootview.findViewById(R.id.recycler_listSelected);
+        btn_realizarpedido = rootview.findViewById(R.id.btn_realizarpedido);
+        txt_costo = rootview.findViewById(R.id.txt_costo);
 
         entitySelectedServicios = new ArrayList<>();
 
         mostrarRecyclerServiciosSeleccionados();
+
+        btn_realizarpedido.setOnClickListener(this);
 
         return rootview;
     }
@@ -76,17 +87,21 @@ public class PedidosFragment extends Fragment {
                 String nombre_empaque = jsonObject.getString("nombre_empaque");
                 String precio = jsonObject.getString("precio");
                 String unidades = jsonObject.getString("unidades");
+                String subTotal = jsonObject.getString("subtotal");
 
-                entitySelectedServicios.add(new EntitySelectedServicios(imagen_logo, nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, nombre_empaque, unidades));
+                entitySelectedServicios.add(new EntitySelectedServicios(imagen_logo, nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal, nombre_empaque, unidades));
+                countPrecio = countPrecio + Double.valueOf(subTotal);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
+        txt_costo.setText("Total:  S/" + countPrecio);
+
         GridLayoutManager layoutManager
                 = new GridLayoutManager(getContext(), 1);
         recyclerAdapterSelectedServicios = new RecyclerAdapterSelectedServicios(getContext(), entitySelectedServicios);
-        recyclerAdapterSelectedServicios.Update();
         recycler_listSelected.setLayoutManager(layoutManager);
         recycler_listSelected.setAdapter(recyclerAdapterSelectedServicios);
 
@@ -99,4 +114,19 @@ public class PedidosFragment extends Fragment {
         return preferences.getString(keyPref, "");
     }
 
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+
+            case R.id.btn_realizarpedido:
+
+                CleanSharePref.deleteTemp(getContext());
+                recyclerAdapterSelectedServicios.UpdateClear();
+                txt_costo.setText("");
+                Toast.makeText(getContext(), "Pedido realizado con éxito", Toast.LENGTH_SHORT).show();
+
+                break;
+        }
+    }
 }

@@ -63,6 +63,8 @@ public class InfoProductoActivity extends AppCompatActivity {
 
     private long animationDuration = 700;
 
+    private Double subTotal = 0.0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +113,9 @@ public class InfoProductoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 count = count + 1;
                 txt_count.setText(String.valueOf(count));
+
+                int num = precio.length();
+                subTotal = count * Double.valueOf(precio.substring(3, num));
             }
         });
         ibtn_menos.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +125,9 @@ public class InfoProductoActivity extends AppCompatActivity {
                 if (count != 0) {
                     count = count - 1;
                     txt_count.setText(String.valueOf(count));
+
+                    int num = precio.length();
+                    subTotal = count * Double.valueOf(precio.substring(3, num));
                 }
             }
         });
@@ -146,6 +154,9 @@ public class InfoProductoActivity extends AppCompatActivity {
                 contador_compra = contador_compra + 1;
 
                 txt_countBadge.setText(String.valueOf(contador_compra));
+
+                String unidades = String.valueOf(count);
+                app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal.toString(), image_producto, unidades, dataSpinner);
 
             }
         });
@@ -194,10 +205,6 @@ public class InfoProductoActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        String unidades = txt_countBadge.getText().toString();
-
-                        app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, image_producto, unidades, dataSpinner);
-
                         Intent intent = new Intent(InfoProductoActivity.this, ContentMainActivity.class);
                         intent.putExtra("fragmentSelected", "ServiciosFragment");
                         startActivity(intent);
@@ -243,7 +250,7 @@ public class InfoProductoActivity extends AppCompatActivity {
 
     }
 
-    private void app(String nombre_comercial, String nombre_generico, String nombre_laboratorio, String nombre_presentacion, String precio, int image_producto, String unidades, String nombre_empaque) {
+    private void app(String nombre_comercial, String nombre_generico, String nombre_laboratorio, String nombre_presentacion, String precio, String subTotal, int image_producto, String unidades, String nombre_empaque) {
 
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("RecyclerTemp", Context.MODE_PRIVATE);
@@ -260,6 +267,7 @@ public class InfoProductoActivity extends AppCompatActivity {
         product.setNombre_presentacion(nombre_presentacion);
         product.setImagen_logo(image_producto);
         product.setPrecio(precio);
+        product.setSubtotal(subTotal);
         product.setUnidades(unidades);
         product.setNombre_empaque(nombre_empaque);
 

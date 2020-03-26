@@ -8,6 +8,7 @@ public class Product {
     private String nombre_presentacion;
     private String nombre_laboratorio;
     private String precio;
+    private String subtotal;
     private String nombre_empaque;
     private String unidades;
 
@@ -59,6 +60,14 @@ public class Product {
         this.precio = precio;
     }
 
+    public String getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(String subtotal) {
+        this.subtotal = subtotal;
+    }
+
     public String getNombre_empaque() {
         return nombre_empaque;
     }
@@ -84,6 +93,7 @@ public class Product {
                 ", nombre_presentacion='" + nombre_presentacion + '\'' +
                 ", nombre_laboratorio='" + nombre_laboratorio + '\'' +
                 ", precio='" + precio + '\'' +
+                ", subtotal='" + subtotal + '\'' +
                 ", nombre_empaque='" + nombre_empaque + '\'' +
                 ", unidades='" + unidades + '\'' +
                 '}';
