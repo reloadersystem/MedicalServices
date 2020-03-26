@@ -47,6 +47,8 @@ public class PedidosFragment extends Fragment {
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_pedidos, container, false);
 
+        getActivity().setTitle("Mi carrito de Compra");
+
         recycler_listSelected = rootview.findViewById(R.id.recycler_listSelected);
 
         entitySelectedServicios = new ArrayList<>();

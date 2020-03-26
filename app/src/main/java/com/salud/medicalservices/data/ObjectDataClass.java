@@ -24,6 +24,18 @@ public class ObjectDataClass {
         return mListServicios;
     }
 
+    public static ArrayList<ItemProductos> getServicios2(Context context) {
+
+        ArrayList<ItemProductos> mListServicios = new ArrayList<>();
+
+        mListServicios.add(new ItemProductos(R.drawable.farmaprod_1, "Servicio de toma de Sangre", "", "", "", "S/. 15.00"));
+        mListServicios.add(new ItemProductos(R.drawable.farmaprod_1, "Servicio de toma de Orina", "", "", "", "S/. 40.00"));
+        mListServicios.add(new ItemProductos(R.drawable.farmaprod_1, "Servicio de prueba XYZ de ", "", "", "", "S/. 115.00"));
+
+
+        return mListServicios;
+    }
+
     public static ArrayList<ItemProductos> getProductos(Context context) {
 
         ArrayList<ItemProductos> mListProductos = new ArrayList<>();

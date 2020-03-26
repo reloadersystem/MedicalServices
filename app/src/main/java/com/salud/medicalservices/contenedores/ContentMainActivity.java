@@ -6,6 +6,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.salud.medicalservices.R;
+import com.salud.medicalservices.fragments.AyudaFragment;
 import com.salud.medicalservices.fragments.PedidosFragment;
 import com.salud.medicalservices.fragments.PerfilFragment;
 import com.salud.medicalservices.fragments.ProductosFragment;
@@ -24,6 +25,7 @@ public class ContentMainActivity extends AppCompatActivity {
     ServiciosFragment serviciosFragment;
     PedidosFragment pedidosFragment;
     PerfilFragment perfilFragment;
+    AyudaFragment ayudaFragment;
     BottomNavigationView mNavigationBottom;
     String fragmentSelected = "";
 
@@ -43,7 +45,7 @@ public class ContentMainActivity extends AppCompatActivity {
         pedidosFragment = new PedidosFragment();
         serviciosFragment = new ServiciosFragment();
         perfilFragment = new PerfilFragment();
-
+        ayudaFragment = new AyudaFragment();
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -53,7 +55,7 @@ public class ContentMainActivity extends AppCompatActivity {
         if (fragmentSelected.equalsIgnoreCase("ServiciosFragment")) {
 
             MenuItem ServiceItem = mNavigationBottom.getMenu().getItem(2);
-            Fragment fragment = new ServiciosFragment();
+            Fragment fragment = new PedidosFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
             mNavigationBottom.setSelectedItemId(ServiceItem.getItemId());
 
@@ -82,6 +84,10 @@ public class ContentMainActivity extends AppCompatActivity {
 
                     case R.id.profileMenu:
                         setFragment(perfilFragment);
+                        return true;
+
+                    case R.id.opcion_ayuda:
+                        setFragment(ayudaFragment);
                         return true;
 
                     default:

@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView txv_sendpassword;
-    Button btnIngresar;
+    Button btnIngresar,btn_registrarme;
 
     RecyclerView recycler;
     RecyclerView.LayoutManager layoutManager;
@@ -33,11 +33,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         txv_sendpassword = findViewById(R.id.txr_review_password);
         btnIngresar = findViewById(R.id.btnLogin);
+        btn_registrarme = findViewById(R.id.btn_registrarme);
 
         items = new ArrayList<>();
 
         txv_sendpassword.setOnClickListener(this);
         btnIngresar.setOnClickListener(this);
+        btn_registrarme.setOnClickListener(this);
 
     }
 
@@ -54,6 +56,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.btnLogin: {
                 Intent intent = new Intent(LoginActivity.this, ContentMainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            break;
+            case R.id.btn_registrarme: {
+                Intent intent = new Intent(LoginActivity.this, RegistroActivity.class);
                 startActivity(intent);
                 finish();
             }

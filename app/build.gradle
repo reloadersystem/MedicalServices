@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.salud.medicalservices"
-        minSdkVersion 24
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -35,5 +35,8 @@ dependencies {
     //Gson Converter
 
     implementation 'com.google.code.gson:gson:2.8.0'
+
+    //SweetAlert
+    implementation 'com.github.f0ris.sweetalert:library:1.5.1'
 
 }

@@ -20,4 +20,9 @@
         android:id="@+id/profileMenu"
         android:icon="@drawable/ic_perfil"
         android:title="Mi Perfil" />
+
+    <item
+        android:id="@+id/opcion_ayuda"
+        android:icon="@drawable/ic_perfil"
+        android:title="Ayuda" />
 </menu>
