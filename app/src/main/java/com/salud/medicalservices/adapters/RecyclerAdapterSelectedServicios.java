@@ -38,6 +38,7 @@ public class RecyclerAdapterSelectedServicios extends RecyclerView.Adapter<Recyc
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapterSelectedServicios.MyViewHolder holder, int position) {
 
+
         holder.img_producto.setImageResource(mServiciosSelectedList.get(position).getImagen_logo());
         holder.txt_comercial.setText(mServiciosSelectedList.get(position).getNombre_comercial());
         holder.txt_generico.setText(mServiciosSelectedList.get(position).getNombre_generico());

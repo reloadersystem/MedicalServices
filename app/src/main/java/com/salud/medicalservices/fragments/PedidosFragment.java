@@ -71,6 +71,8 @@ public class PedidosFragment extends Fragment implements View.OnClickListener {
 
     private void mostrarRecyclerServiciosSeleccionados() {
 
+
+
         SharedPreferences spRecycler = getContext().getSharedPreferences("RecyclerTemp", Context.MODE_PRIVATE);
         int countTemp = spRecycler.getAll().size();
 
@@ -87,7 +89,7 @@ public class PedidosFragment extends Fragment implements View.OnClickListener {
                 String nombre_empaque = jsonObject.getString("nombre_empaque");
                 String precio = jsonObject.getString("precio");
                 String unidades = jsonObject.getString("unidades");
-                String subTotal = jsonObject.getString("subtotal");
+                String subTotal = String.format("%.2f", jsonObject.getDouble("subtotal"));
 
                 entitySelectedServicios.add(new EntitySelectedServicios(imagen_logo, nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal, nombre_empaque, unidades));
                 countPrecio = countPrecio + Double.valueOf(subTotal);

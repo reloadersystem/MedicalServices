@@ -45,7 +45,7 @@
                     android:fontFamily="@font/futuraheavy"
                     android:textColor="@android:color/background_dark"
                     android:textStyle="bold"
-                    tools:text="Nombre Comercial" />
+                    tools:text="NameComercial" />
 
             </LinearLayout>
 
@@ -93,7 +93,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="70"
+                        android:layout_weight="65"
                         android:text="S/"
                         android:textSize="11sp"></TextView>
 
@@ -113,7 +113,7 @@
                         android:id="@+id/txt_subTotal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="20"
+                        android:layout_weight="25"
                         android:fontFamily="@font/rajdhanibold"
                         tools:text="0.00"
                         android:textColor="@color/colorAccent"

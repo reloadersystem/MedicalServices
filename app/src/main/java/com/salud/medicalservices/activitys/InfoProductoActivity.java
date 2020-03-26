@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ import com.salud.medicalservices.HelperSharePreference.storage.DefaultSharedPref
 import com.salud.medicalservices.HelperSharePreference.utils.GsonHelper;
 import com.salud.medicalservices.R;
 import com.salud.medicalservices.contenedores.ContentMainActivity;
+import com.salud.medicalservices.utils.ShareDataRead;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,36 +36,26 @@ public class InfoProductoActivity extends AppCompatActivity {
 
     private String nombre_comercial, nombre_generico, nombre_laboratorio, precio, nombre_presentacion;
     private int image_producto;
-
-    TextView txt_nombreComercial, txt_nombregenerico, txt_nombrelaboratorio, txt_nombreprecio, txt_count;
-
-    ImageView img_infoProducto, img_carrito;
-    ImageButton ibtn_agregar, ibtn_menos;
-
-
-    TextView txt_countBadge;
-
-    ImageView image_Badge;
-
-    Spinner spn_empaque;
+    private TextView txt_nombreComercial, txt_nombregenerico, txt_nombrelaboratorio, txt_nombreprecio, txt_count;
+    private ImageView img_infoProducto, img_carrito;
+    private ImageButton ibtn_agregar, ibtn_menos;
+    private TextView txt_countBadge;
+    private ImageView image_Badge;
+    private Spinner spn_empaque;
 
     int count = 0;
+    int badgeCount = 0;
 
-    String dataSpinner = "";
-
-    int contador_compra = 0;
+    private String dataSpinner = "";
+    private int contador_compra = 0;
 
     MenuItem menuItem;
-
     DefaultSharedPreferencesHelper sharedPreferencesHelper;
-
-    private ObjectAnimator animatorXini, animatorXend;
-
-    private Animator animatorSet;
-
+    private ObjectAnimator animatorXini;
     private long animationDuration = 700;
 
     private Double subTotal = 0.0;
+    Vibrator vibrator;
 
 
     @Override
@@ -74,6 +66,7 @@ public class InfoProductoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_info);
 
 
+        vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
         txt_nombreComercial = findViewById(R.id.txt_nombreComercial);
         txt_nombregenerico = findViewById(R.id.txt_nombregenerico);
         txt_nombrelaboratorio = findViewById(R.id.txt_nombrelaboratorio);
@@ -151,12 +144,36 @@ public class InfoProductoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                contador_compra = contador_compra + 1;
+                String datashare = ShareDataRead.obtenerValor(getApplicationContext(), "BadgeCount");
 
-                txt_countBadge.setText(String.valueOf(contador_compra));
+                if (!(datashare == "")) {
+                    if (count > 0) {// validación que como minio eligio mas de un producto
+                        vibrator.vibrate(600);
+                        movRightText();
+                        movRightImage();
 
-                String unidades = String.valueOf(count);
-                app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal.toString(), image_producto, unidades, dataSpinner);
+                        int badgeSum = Integer.parseInt(datashare);
+                        contador_compra = badgeSum + 1;
+                        txt_countBadge.setText(String.valueOf(contador_compra));
+                        ShareDataRead.guardarValor(getApplicationContext(), "BadgeCount", String.valueOf(contador_compra));
+                        String unidades = String.valueOf(contador_compra);
+                        app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal.toString(), image_producto, unidades, dataSpinner);
+                    }
+
+                } else {
+                    if (count > 0) {
+                        vibrator.vibrate(600);
+                        movRightText();
+                        movRightImage();
+                        contador_compra = contador_compra + 1;
+                        txt_countBadge.setText(String.valueOf(contador_compra));
+                        ShareDataRead.guardarValor(getApplicationContext(), "BadgeCount", String.valueOf(contador_compra));
+                        String unidades = String.valueOf(count);
+                        app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal.toString(), image_producto, unidades, dataSpinner);
+                        badgeCount = badgeCount + 1;
+                    }
+                }
+
 
             }
         });
@@ -183,7 +200,10 @@ public class InfoProductoActivity extends AppCompatActivity {
 
         txt_countBadge = actionview.findViewById(R.id.notification_badge);
         image_Badge = actionview.findViewById(R.id.image_badge);
-
+        String datashare = ShareDataRead.obtenerValor(getApplicationContext(), "BadgeCount");
+        if (!(datashare == "")) {
+            txt_countBadge.setText(datashare);
+        }
         actionview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
