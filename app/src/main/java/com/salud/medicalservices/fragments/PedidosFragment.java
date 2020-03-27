@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -46,8 +47,11 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
     private Button btn_realizarpedido;
     private TextView txt_costo;
     private Double countPrecio = 0.0;
+    private Double swipeDescuento = 0.0;
 
     private CoordinatorLayout rootLayout;
+
+    private int indicador = 0;
 
 
     public PedidosFragment() {
@@ -61,6 +65,7 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_pedidos, container, false);
 
+
         getActivity().setTitle("Mi carrito de Compra");
 
         recycler_listSelected = rootview.findViewById(R.id.recycler_listSelected);
@@ -71,6 +76,7 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
         btn_realizarpedido = rootview.findViewById(R.id.btn_realizarpedido);
         txt_costo = rootview.findViewById(R.id.txt_costo);
 
+
         entitySelectedServicios = new ArrayList<>();
 
         SharedPreferences spRecycler = getContext().getSharedPreferences("RecyclerTemp", MODE_PRIVATE);
@@ -78,7 +84,7 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
 
         for (int a = 0; a < countTemp; a++) {
 
-            String saveRecycler = obtenerValorRecycler(getContext(), "recycler" + a);
+            String saveRecycler = obtenerValorRecycler(getContext(), "" + a);
             try {
                 JSONObject jsonObject = new JSONObject(saveRecycler);
                 int imagen_logo = jsonObject.getInt("imagen_logo");
@@ -99,7 +105,8 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
             }
         }
 
-        txt_costo.setText("Total:  S/" + countPrecio);
+
+        txt_costo.setText("Total:  S/" + String.format("%.2f", countPrecio));
 
         GridLayoutManager layoutManager
                 = new GridLayoutManager(getContext(), 1);
@@ -107,8 +114,6 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
         recycler_listSelected.setLayoutManager(layoutManager);
         recycler_listSelected.setItemAnimator(new DefaultItemAnimator());
         recycler_listSelected.setAdapter(recyclerAdapterSelectedServicios);
-
-
         btn_realizarpedido.setOnClickListener(this);
 
         return rootview;
@@ -142,11 +147,51 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
 
-        if (viewHolder instanceof RecyclerAdapterSelectedServicios.MyViewHolder) {
-            String name = entitySelectedServicios.get(viewHolder.getAdapterPosition()).getNombre_comercial();
-            final EntitySelectedServicios deleteItem = entitySelectedServicios.get(viewHolder.getAdapterPosition());
-            final int deleteIndex = viewHolder.getAdapterPosition();
-            recyclerAdapterSelectedServicios.RemoveItem(deleteIndex);
+        if (indicador == 0) {
+            if (viewHolder instanceof RecyclerAdapterSelectedServicios.MyViewHolder) {
+                Double subtotalDescuento = Double.valueOf(entitySelectedServicios.get(viewHolder.getAdapterPosition()).getSubtotal());
+                final EntitySelectedServicios deleteItem = entitySelectedServicios.get(viewHolder.getAdapterPosition());
+                final int deleteIndex = viewHolder.getAdapterPosition();
+                recyclerAdapterSelectedServicios.RemoveItem(deleteIndex);
+                swipeDescuento = countPrecio - subtotalDescuento;
+                txt_costo.setText("Total:  S/" + String.format("%.2f", (swipeDescuento)));
+                indicador = indicador + 1;
+
+                deleteItemSharePreference(String.valueOf(deleteIndex));
+            }
+        } else {
+            if (viewHolder instanceof RecyclerAdapterSelectedServicios.MyViewHolder) {
+                Double subtotalDescuento = Double.valueOf(entitySelectedServicios.get(viewHolder.getAdapterPosition()).getSubtotal());
+                final EntitySelectedServicios deleteItem = entitySelectedServicios.get(viewHolder.getAdapterPosition());
+                final int deleteIndex = viewHolder.getAdapterPosition();
+                recyclerAdapterSelectedServicios.RemoveItem(deleteIndex);
+                swipeDescuento = swipeDescuento - subtotalDescuento;
+                txt_costo.setText("Total:  S/" + String.format("%.2f", (swipeDescuento)));
+                deleteItemSharePreference(String.valueOf(deleteIndex));
+            }
         }
+
+    }
+
+    private void deleteItemSharePreference(String KeyName) {
+        SharedPreferences settings = getContext().getSharedPreferences("RecyclerTemp", Context.MODE_PRIVATE);
+        settings.edit().remove(KeyName).commit();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        recyclerAdapterSelectedServicios.Clean();
+        swipeDescuento = 0.0;
+        indicador = 0;
+        countPrecio = 0.0;
+
     }
 }

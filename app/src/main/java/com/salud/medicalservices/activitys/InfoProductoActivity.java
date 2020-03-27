@@ -277,7 +277,7 @@ public class InfoProductoActivity extends AppCompatActivity {
         String countShare = String.valueOf(sharedPreferences.getAll().size());
 
         GsonHelper gsonHelper = new GsonHelper();
-        sharedPreferencesHelper = new DefaultSharedPreferencesHelper(gsonHelper, sharedPreferences, "recycler" + countShare);
+        sharedPreferencesHelper = new DefaultSharedPreferencesHelper(gsonHelper, sharedPreferences, "" + countShare);
 
         Product product = new Product();
         product.setNombre_comercial(nombre_comercial);

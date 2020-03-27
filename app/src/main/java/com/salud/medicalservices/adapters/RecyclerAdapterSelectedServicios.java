@@ -74,6 +74,11 @@ public class RecyclerAdapterSelectedServicios extends RecyclerView.Adapter<Recyc
         notifyItemInserted(position);
     }
 
+    public  void Clean(){
+        mServiciosSelectedList.clear();
+        notifyDataSetChanged();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView img_producto;
