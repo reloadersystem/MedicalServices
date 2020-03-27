@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.salud.medicalservices.R;
 import com.salud.medicalservices.adapters.RecyclerAdapterSelectedServicios;
+import com.salud.medicalservices.adapters.helper.RecyclerItemTouchHelper;
+import com.salud.medicalservices.adapters.helper.RecyclerItemTouchHelperListener;
 import com.salud.medicalservices.entidades.EntitySelectedServicios;
 import com.salud.medicalservices.utils.CleanSharePref;
 
@@ -22,8 +24,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -31,7 +36,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PedidosFragment extends Fragment implements View.OnClickListener {
+public class PedidosFragment extends Fragment implements View.OnClickListener, RecyclerItemTouchHelperListener {
 
     View rootview;
 
@@ -41,6 +46,8 @@ public class PedidosFragment extends Fragment implements View.OnClickListener {
     private Button btn_realizarpedido;
     private TextView txt_costo;
     private Double countPrecio = 0.0;
+
+    private CoordinatorLayout rootLayout;
 
 
     public PedidosFragment() {
@@ -57,23 +64,16 @@ public class PedidosFragment extends Fragment implements View.OnClickListener {
         getActivity().setTitle("Mi carrito de Compra");
 
         recycler_listSelected = rootview.findViewById(R.id.recycler_listSelected);
+
+        ItemTouchHelper.SimpleCallback ItemTouchHelperCallbackLeft = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(ItemTouchHelperCallbackLeft).attachToRecyclerView(recycler_listSelected);
+
         btn_realizarpedido = rootview.findViewById(R.id.btn_realizarpedido);
         txt_costo = rootview.findViewById(R.id.txt_costo);
 
         entitySelectedServicios = new ArrayList<>();
 
-        mostrarRecyclerServiciosSeleccionados();
-
-        btn_realizarpedido.setOnClickListener(this);
-
-        return rootview;
-    }
-
-    private void mostrarRecyclerServiciosSeleccionados() {
-
-
-
-        SharedPreferences spRecycler = getContext().getSharedPreferences("RecyclerTemp", Context.MODE_PRIVATE);
+        SharedPreferences spRecycler = getContext().getSharedPreferences("RecyclerTemp", MODE_PRIVATE);
         int countTemp = spRecycler.getAll().size();
 
         for (int a = 0; a < countTemp; a++) {
@@ -105,9 +105,13 @@ public class PedidosFragment extends Fragment implements View.OnClickListener {
                 = new GridLayoutManager(getContext(), 1);
         recyclerAdapterSelectedServicios = new RecyclerAdapterSelectedServicios(getContext(), entitySelectedServicios);
         recycler_listSelected.setLayoutManager(layoutManager);
+        recycler_listSelected.setItemAnimator(new DefaultItemAnimator());
         recycler_listSelected.setAdapter(recyclerAdapterSelectedServicios);
 
 
+        btn_realizarpedido.setOnClickListener(this);
+
+        return rootview;
     }
 
 
@@ -129,6 +133,20 @@ public class PedidosFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getContext(), "Pedido realizado con éxito", Toast.LENGTH_SHORT).show();
 
                 break;
+        }
+
+
+    }
+
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+
+        if (viewHolder instanceof RecyclerAdapterSelectedServicios.MyViewHolder) {
+            String name = entitySelectedServicios.get(viewHolder.getAdapterPosition()).getNombre_comercial();
+            final EntitySelectedServicios deleteItem = entitySelectedServicios.get(viewHolder.getAdapterPosition());
+            final int deleteIndex = viewHolder.getAdapterPosition();
+            recyclerAdapterSelectedServicios.RemoveItem(deleteIndex);
         }
     }
 }

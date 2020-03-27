@@ -1,11 +1,13 @@
 package com.salud.medicalservices.adapters;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.salud.medicalservices.R;
@@ -60,6 +62,18 @@ public class RecyclerAdapterSelectedServicios extends RecyclerView.Adapter<Recyc
         notifyDataSetChanged();
     }
 
+    public void RemoveItem( int position)
+    {
+        mServiciosSelectedList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public  void restoreItem(EntitySelectedServicios item , int  position)
+    {
+        mServiciosSelectedList.add(position, item);
+        notifyItemInserted(position);
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView img_producto;
@@ -67,16 +81,17 @@ public class RecyclerAdapterSelectedServicios extends RecyclerView.Adapter<Recyc
         private TextView txt_generico;
         private TextView txt_presentacion;
         private TextView txt_laboratorio;
-        private LinearLayout ln_producto;
         private TextView txt_subTotal;
         private TextView txt_precio;
         private TextView txt_unidades;
+
+        public RelativeLayout viewBackground;
+        public LinearLayout viewForeground;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             img_producto = itemView.findViewById(R.id.img_producto);
-            ln_producto = itemView.findViewById(R.id.ln_producto);
             txt_comercial = itemView.findViewById(R.id.txt_comercial);
             txt_generico = itemView.findViewById(R.id.txt_generico);
             txt_presentacion = itemView.findViewById(R.id.txt_presentacion);
@@ -84,6 +99,9 @@ public class RecyclerAdapterSelectedServicios extends RecyclerView.Adapter<Recyc
             txt_precio = itemView.findViewById(R.id.txt_precioxunidad);
             txt_subTotal = itemView.findViewById(R.id.txt_subTotal);
             txt_unidades = itemView.findViewById(R.id.txt_unidades);
+
+            viewBackground= itemView.findViewById(R.id.view_background);
+            viewForeground= itemView.findViewById(R.id.view_foreground);
 
 //            ln_producto.setOnClickListener(new View.OnClickListener() {
 //                @Override
