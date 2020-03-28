@@ -11,6 +11,8 @@ public class Product {
     private String subtotal;
     private String nombre_empaque;
     private String unidades;
+    private String idUnique;
+
 
     public int getImagen_logo() {
         return imagen_logo;
@@ -84,6 +86,14 @@ public class Product {
         this.unidades = unidades;
     }
 
+    public String getIdUnique() {
+        return idUnique;
+    }
+
+    public void setIdUnique(String idUnique) {
+        this.idUnique = idUnique;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -96,6 +106,7 @@ public class Product {
                 ", subtotal='" + subtotal + '\'' +
                 ", nombre_empaque='" + nombre_empaque + '\'' +
                 ", unidades='" + unidades + '\'' +
+                ", idUnique='" + idUnique + '\'' +
                 '}';
     }
 }

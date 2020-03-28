@@ -34,7 +34,7 @@ import androidx.core.view.MenuItemCompat;
 
 public class InfoProductoActivity extends AppCompatActivity {
 
-    private String nombre_comercial, nombre_generico, nombre_laboratorio, precio, nombre_presentacion;
+    private String nombre_comercial, nombre_generico, nombre_laboratorio, precio, nombre_presentacion, idUnique;
     private int image_producto;
     private TextView txt_nombreComercial, txt_nombregenerico, txt_nombrelaboratorio, txt_nombreprecio, txt_count;
     private ImageView img_infoProducto, img_carrito;
@@ -93,6 +93,7 @@ public class InfoProductoActivity extends AppCompatActivity {
             nombre_presentacion = bundle.getString("nombre_presentacion");
             precio = bundle.getString("precio");
             image_producto = bundle.getInt("image_producto");
+            idUnique = bundle.getString("idUnique");
         }
 
         txt_nombreComercial.setText(nombre_comercial);
@@ -157,7 +158,7 @@ public class InfoProductoActivity extends AppCompatActivity {
                         txt_countBadge.setText(String.valueOf(contador_compra));
                         ShareDataRead.guardarValor(getApplicationContext(), "BadgeCount", String.valueOf(contador_compra));
                         String unidades = String.valueOf(contador_compra);
-                        app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal.toString(), image_producto, unidades, dataSpinner);
+                        app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal.toString(), image_producto, unidades, dataSpinner, idUnique);
                     }
 
                 } else {
@@ -169,7 +170,7 @@ public class InfoProductoActivity extends AppCompatActivity {
                         txt_countBadge.setText(String.valueOf(contador_compra));
                         ShareDataRead.guardarValor(getApplicationContext(), "BadgeCount", String.valueOf(contador_compra));
                         String unidades = String.valueOf(count);
-                        app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal.toString(), image_producto, unidades, dataSpinner);
+                        app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal.toString(), image_producto, unidades, dataSpinner, idUnique);
                         badgeCount = badgeCount + 1;
                     }
                 }
@@ -270,14 +271,14 @@ public class InfoProductoActivity extends AppCompatActivity {
 
     }
 
-    private void app(String nombre_comercial, String nombre_generico, String nombre_laboratorio, String nombre_presentacion, String precio, String subTotal, int image_producto, String unidades, String nombre_empaque) {
+    private void app(String nombre_comercial, String nombre_generico, String nombre_laboratorio, String nombre_presentacion, String precio, String subTotal, int image_producto, String unidades, String nombre_empaque, String idUnique) {
 
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("RecyclerTemp", Context.MODE_PRIVATE);
         String countShare = String.valueOf(sharedPreferences.getAll().size());
 
         GsonHelper gsonHelper = new GsonHelper();
-        sharedPreferencesHelper = new DefaultSharedPreferencesHelper(gsonHelper, sharedPreferences, "" + countShare);
+        sharedPreferencesHelper = new DefaultSharedPreferencesHelper(gsonHelper, sharedPreferences, "recycler" + countShare);
 
         Product product = new Product();
         product.setNombre_comercial(nombre_comercial);
@@ -290,6 +291,7 @@ public class InfoProductoActivity extends AppCompatActivity {
         product.setSubtotal(subTotal);
         product.setUnidades(unidades);
         product.setNombre_empaque(nombre_empaque);
+        product.setIdUnique(idUnique);
 
         sharedPreferencesHelper.saveProduct(product);
         Product userSp = sharedPreferencesHelper.product();

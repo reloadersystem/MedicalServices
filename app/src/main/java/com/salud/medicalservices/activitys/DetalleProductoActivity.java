@@ -63,6 +63,7 @@ public class DetalleProductoActivity extends AppCompatActivity {
                 String nombre_presentacion= listProductos.get(position).getNombre_presentacion();
                 String precio= listProductos.get(position).getPrecio();
                 int image_producto= listProductos.get(position).getImagen_logo();
+                String idUnique= listProductos.get(position).getIdUnique();
 
                 Intent intent = new Intent(DetalleProductoActivity.this, InfoProductoActivity.class);
                 intent.putExtra("nombre_comercial", nombre_comercial);
@@ -71,6 +72,7 @@ public class DetalleProductoActivity extends AppCompatActivity {
                 intent.putExtra("nombre_presentacion", nombre_presentacion);
                 intent.putExtra("precio", precio);
                 intent.putExtra("image_producto", image_producto);
+                intent.putExtra("idUnique", idUnique);
                 startActivity(intent);
             }
         });

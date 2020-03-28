@@ -84,7 +84,7 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
 
         for (int a = 0; a < countTemp; a++) {
 
-            String saveRecycler = obtenerValorRecycler(getContext(), "" + a);
+            String saveRecycler = obtenerValorRecycler(getContext(), "recycler" + a);
             try {
                 JSONObject jsonObject = new JSONObject(saveRecycler);
                 int imagen_logo = jsonObject.getInt("imagen_logo");
@@ -95,9 +95,10 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
                 String nombre_empaque = jsonObject.getString("nombre_empaque");
                 String precio = jsonObject.getString("precio");
                 String unidades = jsonObject.getString("unidades");
-                String subTotal = String.format("%.2f", jsonObject.getDouble("subtotal"));
+                String idUnique = jsonObject.getString("idUnique");
+                String subTotal = jsonObject.getString("subtotal");
 
-                entitySelectedServicios.add(new EntitySelectedServicios(imagen_logo, nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal, nombre_empaque, unidades));
+                entitySelectedServicios.add(new EntitySelectedServicios(imagen_logo, nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, String.format("%.2f", Double.valueOf(subTotal)), nombre_empaque, unidades, idUnique));
                 countPrecio = countPrecio + Double.valueOf(subTotal);
 
             } catch (JSONException e) {
@@ -157,7 +158,7 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
                 txt_costo.setText("Total:  S/" + String.format("%.2f", (swipeDescuento)));
                 indicador = indicador + 1;
 
-                deleteItemSharePreference(String.valueOf(deleteIndex));
+                //deleteItemSharePreference(String.valueOf(deleteIndex));
             }
         } else {
             if (viewHolder instanceof RecyclerAdapterSelectedServicios.MyViewHolder) {
@@ -167,7 +168,6 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
                 recyclerAdapterSelectedServicios.RemoveItem(deleteIndex);
                 swipeDescuento = swipeDescuento - subtotalDescuento;
                 txt_costo.setText("Total:  S/" + String.format("%.2f", (swipeDescuento)));
-                deleteItemSharePreference(String.valueOf(deleteIndex));
             }
         }
 

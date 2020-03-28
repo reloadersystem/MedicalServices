@@ -12,8 +12,9 @@ public class EntitySelectedServicios {
     private String subtotal;
     private String nombre_empaque;
     private String unidades;
+    private String idUnique;
 
-    public EntitySelectedServicios(int imagen_logo, String nombre_comercial, String nombre_generico, String nombre_presentacion, String nombre_laboratorio, String precio, String subtotal, String nombre_empaque, String unidades) {
+    public EntitySelectedServicios(int imagen_logo, String nombre_comercial, String nombre_generico, String nombre_presentacion, String nombre_laboratorio, String precio, String subtotal, String nombre_empaque, String unidades, String idUnique) {
         this.imagen_logo = imagen_logo;
         this.nombre_comercial = nombre_comercial;
         this.nombre_generico = nombre_generico;
@@ -23,6 +24,7 @@ public class EntitySelectedServicios {
         this.subtotal = subtotal;
         this.nombre_empaque = nombre_empaque;
         this.unidades = unidades;
+        this.idUnique = idUnique;
     }
 
     public int getImagen_logo() {
@@ -95,5 +97,13 @@ public class EntitySelectedServicios {
 
     public void setUnidades(String unidades) {
         this.unidades = unidades;
+    }
+
+    public String getIdUnique() {
+        return idUnique;
+    }
+
+    public void setIdUnique(String idUnique) {
+        this.idUnique = idUnique;
     }
 }

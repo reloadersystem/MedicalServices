@@ -4,14 +4,16 @@ public class ItemProductos {
 
 
     private int imagen_logo;
+    private String idUnique;
     private String nombre_comercial;
     private String nombre_generico;
     private String nombre_presentacion;
     private String nombre_laboratorio;
     private String precio;
 
-    public ItemProductos(int imagen_logo, String nombre_comercial, String nombre_generico, String nombre_presentacion, String nombre_laboratorio, String precio) {
+    public ItemProductos(int imagen_logo, String idUnique, String nombre_comercial, String nombre_generico, String nombre_presentacion, String nombre_laboratorio, String precio) {
         this.imagen_logo = imagen_logo;
+        this.idUnique = idUnique;
         this.nombre_comercial = nombre_comercial;
         this.nombre_generico = nombre_generico;
         this.nombre_presentacion = nombre_presentacion;
@@ -25,6 +27,14 @@ public class ItemProductos {
 
     public void setImagen_logo(int imagen_logo) {
         this.imagen_logo = imagen_logo;
+    }
+
+    public String getIdUnique() {
+        return idUnique;
+    }
+
+    public void setIdUnique(String idUnique) {
+        this.idUnique = idUnique;
     }
 
     public String getNombre_comercial() {

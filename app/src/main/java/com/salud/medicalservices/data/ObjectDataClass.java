@@ -28,9 +28,9 @@ public class ObjectDataClass {
 
         ArrayList<ItemProductos> mListServicios = new ArrayList<>();
 
-        mListServicios.add(new ItemProductos(R.drawable.farmaprod_1, "Servicio de toma de Sangre", "", "", "", "S/. 15.00"));
-        mListServicios.add(new ItemProductos(R.drawable.farmaprod_1, "Servicio de toma de Orina", "", "", "", "S/. 40.00"));
-        mListServicios.add(new ItemProductos(R.drawable.farmaprod_1, "Servicio de prueba XYZ de ", "", "", "", "S/. 115.00"));
+        mListServicios.add(new ItemProductos(R.drawable.farmaprod_1, "A106","Servicio de toma de Sangre", "", "", "", "S/. 15.00"));
+        mListServicios.add(new ItemProductos(R.drawable.farmaprod_1, "A107","Servicio de toma de Orina", "", "", "", "S/. 40.00"));
+        mListServicios.add(new ItemProductos(R.drawable.farmaprod_1, "A108","Servicio de prueba XYZ de ", "", "", "", "S/. 115.00"));
 
 
         return mListServicios;
@@ -40,12 +40,12 @@ public class ObjectDataClass {
 
         ArrayList<ItemProductos> mListProductos = new ArrayList<>();
 
-        mListProductos.add(new ItemProductos(R.drawable.farmaprod_1, "Vitagel", "Collagen Hydrolysate", "Frasco", "SWITZERLAND", "S/. 15.00"));
-        mListProductos.add(new ItemProductos(R.drawable.farmaprod_2, "NatC", "Yummy Gummyz", "Caja", "MEGA", "S/. 40.00"));
-        mListProductos.add(new ItemProductos(R.drawable.farmaprod_3, "Enfagrow", "Pro Mental", "Frasco 850g", "DHA", "S/. 115.00"));
-        mListProductos.add(new ItemProductos(R.drawable.farmaprod_4, "Ensure", "Ensure Advance", "Caja", "Laboratorio Portugal", "S/. 55.50"));
-        mListProductos.add(new ItemProductos(R.drawable.farmaprod_5, "NAN", "NAN Crecimiento", "Frasco 800g", "Nestle", "S/. 78.10"));
-        mListProductos.add(new ItemProductos(R.drawable.farmaprod_6, "GERIA PLUS", "Geria Plus For Life", "Frasco", "Welliimune", "S/. 40.00"));
+        mListProductos.add(new ItemProductos(R.drawable.farmaprod_1, "A100","Vitagel", "Collagen Hydrolysate", "Frasco", "SWITZERLAND", "S/. 15.00"));
+        mListProductos.add(new ItemProductos(R.drawable.farmaprod_2, "A101","NatC", "Yummy Gummyz", "Caja", "MEGA", "S/. 40.00"));
+        mListProductos.add(new ItemProductos(R.drawable.farmaprod_3, "A102","Enfagrow", "Pro Mental", "Frasco 850g", "DHA", "S/. 115.00"));
+        mListProductos.add(new ItemProductos(R.drawable.farmaprod_4, "A103","Ensure", "Ensure Advance", "Caja", "Laboratorio Portugal", "S/. 55.50"));
+        mListProductos.add(new ItemProductos(R.drawable.farmaprod_5, "A104","NAN", "NAN Crecimiento", "Frasco 800g", "Nestle", "S/. 78.10"));
+        mListProductos.add(new ItemProductos(R.drawable.farmaprod_6, "A105","GERIA PLUS", "Geria Plus For Life", "Frasco", "Welliimune", "S/. 40.00"));
         return mListProductos;
     }
 }
