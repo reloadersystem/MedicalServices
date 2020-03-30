@@ -3,12 +3,12 @@ package com.salud.medicalservices.activitys;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.transition.Transition;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.salud.medicalservices.MainActivity;
 import com.salud.medicalservices.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,8 @@ public class SplashActivity extends AppCompatActivity {
     Animation animation;
     TextView tvSplash;
     ImageView ivLogo;
+
+    private Transition transition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class SplashActivity extends AppCompatActivity {
 
 
         animation.setAnimationListener(new Animation.AnimationListener() {
+            private static final long DURATION_TRANSITION = 1000;
+
             @Override
             public void onAnimationStart(Animation animation) {
 
@@ -42,11 +46,13 @@ public class SplashActivity extends AppCompatActivity {
                 SharedPreferences sharpref = getSharedPreferences("UserLoginPref", MODE_PRIVATE);
 
                 if (sharpref.contains("userid")) {
+
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                 } else {
+
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -59,7 +65,6 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         });
-
 
     }
 }

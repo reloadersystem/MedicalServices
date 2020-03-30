@@ -4,6 +4,7 @@ package com.salud.medicalservices.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.salud.medicalservices.adapters.helper.RecyclerItemTouchHelper;
 import com.salud.medicalservices.adapters.helper.RecyclerItemTouchHelperListener;
 import com.salud.medicalservices.entidades.EntitySelectedServicios;
 import com.salud.medicalservices.utils.CleanSharePref;
+import com.salud.medicalservices.utils.ShareDataRead;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -151,6 +153,7 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
         if (indicador == 0) {
             if (viewHolder instanceof RecyclerAdapterSelectedServicios.MyViewHolder) {
                 Double subtotalDescuento = Double.valueOf(entitySelectedServicios.get(viewHolder.getAdapterPosition()).getSubtotal());
+                String idUnique = entitySelectedServicios.get(viewHolder.getAdapterPosition()).getIdUnique();
                 final EntitySelectedServicios deleteItem = entitySelectedServicios.get(viewHolder.getAdapterPosition());
                 final int deleteIndex = viewHolder.getAdapterPosition();
                 recyclerAdapterSelectedServicios.RemoveItem(deleteIndex);
@@ -158,25 +161,24 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
                 txt_costo.setText("Total:  S/" + String.format("%.2f", (swipeDescuento)));
                 indicador = indicador + 1;
 
-                //deleteItemSharePreference(String.valueOf(deleteIndex));
+                deleteItemSharePreference(idUnique);
             }
         } else {
             if (viewHolder instanceof RecyclerAdapterSelectedServicios.MyViewHolder) {
                 Double subtotalDescuento = Double.valueOf(entitySelectedServicios.get(viewHolder.getAdapterPosition()).getSubtotal());
                 final EntitySelectedServicios deleteItem = entitySelectedServicios.get(viewHolder.getAdapterPosition());
+                String idUnique = entitySelectedServicios.get(viewHolder.getAdapterPosition()).getIdUnique();
                 final int deleteIndex = viewHolder.getAdapterPosition();
                 recyclerAdapterSelectedServicios.RemoveItem(deleteIndex);
                 swipeDescuento = swipeDescuento - subtotalDescuento;
                 txt_costo.setText("Total:  S/" + String.format("%.2f", (swipeDescuento)));
+
+                deleteItemSharePreference(idUnique);
             }
         }
 
     }
 
-    private void deleteItemSharePreference(String KeyName) {
-        SharedPreferences settings = getContext().getSharedPreferences("RecyclerTemp", Context.MODE_PRIVATE);
-        settings.edit().remove(KeyName).commit();
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -193,5 +195,31 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
         indicador = 0;
         countPrecio = 0.0;
 
+    }
+
+    public void deleteItemSharePreference(String id) {
+
+        SharedPreferences spRecycler = getContext().getSharedPreferences("RecyclerTemp", MODE_PRIVATE);
+
+        int badgeCount = Integer.parseInt((ShareDataRead.obtenerValor(getContext(), "BadgeCount")));
+
+
+        int countTemp = spRecycler.getAll().size();
+
+        for (int a = 0; a <= countTemp; a++) {
+            String saveRecycler = obtenerValorRecycler(getContext(), "recycler" + a);
+            try {
+                JSONObject jsonObject = new JSONObject(saveRecycler);
+                String idUnique = jsonObject.getString("idUnique");
+                if (id.equalsIgnoreCase(idUnique)) {
+                    spRecycler.edit().remove("recycler" + a).commit();
+//                    String badge = String.valueOf(badgeCount - 1);
+//                    ShareDataRead.guardarValor(getContext(), "BadgeCount", (badge));
+                }
+            } catch (Exception e) {
+
+                Log.v("errorException", e.toString());
+            }
+        }
     }
 }

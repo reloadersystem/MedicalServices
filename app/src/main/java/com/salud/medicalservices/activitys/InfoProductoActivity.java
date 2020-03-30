@@ -13,6 +13,7 @@ import android.os.Vibrator;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -46,6 +47,8 @@ public class InfoProductoActivity extends AppCompatActivity {
     int count = 0;
     int badgeCount = 0;
 
+    float x1, x2, y1, y2;
+
     private String dataSpinner = "";
     private int contador_compra = 0;
 
@@ -56,6 +59,8 @@ public class InfoProductoActivity extends AppCompatActivity {
 
     private Double subTotal = 0.0;
     Vibrator vibrator;
+
+    int badgeSum = 0;
 
 
     @Override
@@ -141,6 +146,7 @@ public class InfoProductoActivity extends AppCompatActivity {
             }
         });
 
+
         img_carrito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,7 +159,7 @@ public class InfoProductoActivity extends AppCompatActivity {
                         movRightText();
                         movRightImage();
 
-                        int badgeSum = Integer.parseInt(datashare);
+                        badgeSum = Integer.parseInt(datashare);
                         contador_compra = badgeSum + 1;
                         txt_countBadge.setText(String.valueOf(contador_compra));
                         ShareDataRead.guardarValor(getApplicationContext(), "BadgeCount", String.valueOf(contador_compra));
@@ -201,10 +207,13 @@ public class InfoProductoActivity extends AppCompatActivity {
 
         txt_countBadge = actionview.findViewById(R.id.notification_badge);
         image_Badge = actionview.findViewById(R.id.image_badge);
+
         String datashare = ShareDataRead.obtenerValor(getApplicationContext(), "BadgeCount");
         if (!(datashare == "")) {
             txt_countBadge.setText(datashare);
         }
+
+
         actionview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -298,6 +307,14 @@ public class InfoProductoActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+
+    }
+
 }
 
 
