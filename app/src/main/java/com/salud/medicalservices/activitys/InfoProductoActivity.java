@@ -13,7 +13,6 @@ import android.os.Vibrator;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -26,7 +25,6 @@ import com.salud.medicalservices.HelperSharePreference.storage.DefaultSharedPref
 import com.salud.medicalservices.HelperSharePreference.utils.GsonHelper;
 import com.salud.medicalservices.R;
 import com.salud.medicalservices.contenedores.ContentMainActivity;
-import com.salud.medicalservices.utils.ShareDataRead;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,6 +60,10 @@ public class InfoProductoActivity extends AppCompatActivity {
 
     int badgeSum = 0;
 
+    int countShare = 0;
+
+    SharedPreferences sharPrefRecycler;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class InfoProductoActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_info);
 
+        sharPrefRecycler = this.getSharedPreferences("RecyclerTemp", Context.MODE_PRIVATE);
 
         vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
         txt_nombreComercial = findViewById(R.id.txt_nombreComercial);
@@ -151,18 +154,13 @@ public class InfoProductoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String datashare = ShareDataRead.obtenerValor(getApplicationContext(), "BadgeCount");
-
-                if (!(datashare == "")) {
+                if (countShare == 0) {
                     if (count > 0) {// validación que como minio eligio mas de un producto
                         vibrator.vibrate(600);
                         movRightText();
                         movRightImage();
-
-                        badgeSum = Integer.parseInt(datashare);
-                        contador_compra = badgeSum + 1;
+                        contador_compra = countShare + 1;
                         txt_countBadge.setText(String.valueOf(contador_compra));
-                        ShareDataRead.guardarValor(getApplicationContext(), "BadgeCount", String.valueOf(contador_compra));
                         String unidades = String.valueOf(contador_compra);
                         app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal.toString(), image_producto, unidades, dataSpinner, idUnique);
                     }
@@ -172,20 +170,14 @@ public class InfoProductoActivity extends AppCompatActivity {
                         vibrator.vibrate(600);
                         movRightText();
                         movRightImage();
-                        contador_compra = contador_compra + 1;
+                        contador_compra = countShare + 1;
                         txt_countBadge.setText(String.valueOf(contador_compra));
-                        ShareDataRead.guardarValor(getApplicationContext(), "BadgeCount", String.valueOf(contador_compra));
                         String unidades = String.valueOf(count);
                         app(nombre_comercial, nombre_generico, nombre_laboratorio, nombre_presentacion, precio, subTotal.toString(), image_producto, unidades, dataSpinner, idUnique);
-                        badgeCount = badgeCount + 1;
                     }
                 }
-
-
             }
         });
-
-
     }
 
     @Override
@@ -208,11 +200,8 @@ public class InfoProductoActivity extends AppCompatActivity {
         txt_countBadge = actionview.findViewById(R.id.notification_badge);
         image_Badge = actionview.findViewById(R.id.image_badge);
 
-        String datashare = ShareDataRead.obtenerValor(getApplicationContext(), "BadgeCount");
-        if (!(datashare == "")) {
-            txt_countBadge.setText(datashare);
-        }
-
+        countShare = sharPrefRecycler.getAll().size();
+        txt_countBadge.setText(String.valueOf(countShare));
 
         actionview.setOnClickListener(new View.OnClickListener() {
             @Override

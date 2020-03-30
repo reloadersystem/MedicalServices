@@ -200,21 +200,15 @@ public class PedidosFragment extends Fragment implements View.OnClickListener, R
     public void deleteItemSharePreference(String id) {
 
         SharedPreferences spRecycler = getContext().getSharedPreferences("RecyclerTemp", MODE_PRIVATE);
-
-        int badgeCount = Integer.parseInt((ShareDataRead.obtenerValor(getContext(), "BadgeCount")));
-
-
         int countTemp = spRecycler.getAll().size();
 
-        for (int a = 0; a <= countTemp; a++) {
+        for (int a = 0; a <20; a++) {
             String saveRecycler = obtenerValorRecycler(getContext(), "recycler" + a);
             try {
                 JSONObject jsonObject = new JSONObject(saveRecycler);
                 String idUnique = jsonObject.getString("idUnique");
                 if (id.equalsIgnoreCase(idUnique)) {
                     spRecycler.edit().remove("recycler" + a).commit();
-//                    String badge = String.valueOf(badgeCount - 1);
-//                    ShareDataRead.guardarValor(getContext(), "BadgeCount", (badge));
                 }
             } catch (Exception e) {
 

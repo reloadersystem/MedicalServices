@@ -9,9 +9,5 @@ public class CleanSharePref {
 
         SharedPreferences settings2 = context.getSharedPreferences("RecyclerTemp", Context.MODE_PRIVATE);
         settings2.edit().clear().commit();
-
-        SharedPreferences settings = context.getSharedPreferences("SharePreferenceGeneral", Context.MODE_PRIVATE);
-        settings.edit().clear().commit();
-
     }
 }
