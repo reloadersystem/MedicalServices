@@ -83,12 +83,10 @@ public class OtpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            if (phoneNumber.equalsIgnoreCase(phoneNumber)) {
-                                sendUserToHome();
-                            } else {
-                                Intent registerIntent = new Intent(OtpActivity.this, RegisterActivity.class);
-                                startActivity(registerIntent);
-                            }
+                            Intent registerIntent = new Intent(OtpActivity.this, LoginActivity.class);
+                            registerIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            registerIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(registerIntent);
                         } else {
                             Toast.makeText(OtpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -101,9 +99,9 @@ public class OtpActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        if (mCurrentUser != null) {
-//            sendUserToHome();
-//        }
+        if (mCurrentUser != null) {
+            sendUserToHome();
+        }
     }
 
     private void sendUserToHome() {

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -13,185 +12,189 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:clipToPadding="false"
-        android:padding="@dimen/spacing_large"
-        android:scrollbars="none"
-        android:scrollingCache="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_below="@+id/app_bar_layout"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_nombres"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/transparent"
+                android:hint="Ingrese sus nombres  (*)"
+                android:imeOptions="actionNext" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_appaterno"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/transparent"
+                android:hint="Ingrese sus apellidos  (*)"
+                android:imeOptions="actionNext" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_mail"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/transparent"
+                android:hint="E-mail  (*) "
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/transparent"
+                android:hint="Password  (*)"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/TextAppearance.AppCompat.Subhead"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/spacing_large"
-                android:fontFamily="@font/roboto_bold"
-                android:gravity="center"
-                android:text="Complete el formulario"
-                android:textSize="@dimen/text_smlarge" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:layout_marginBottom="@dimen/spacing_mxlarge"
-                android:fontFamily="@font/roboto"
-                android:text="en caso de que la empresa necesite contactar contigo"
-                android:textSize="@dimen/text_large" />
+                android:text="Documento"></TextView>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/grey_10" />
+            <Spinner
+                android:id="@+id/spinner_document"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:entries="@array/document"
+                android:spinnerMode="dropdown"></Spinner>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/edt_documento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_middle"
-                android:layout_marginBottom="@dimen/spacing_middle">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_mail"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/transparent"
-                    android:hint="E-mail"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/grey_10" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_middle"
-                android:layout_marginBottom="@dimen/spacing_middle">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_nombres"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/transparent"
-                    android:hint="Nombres"
-                    android:imeOptions="actionNext" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/grey_10" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_middle"
-                android:layout_marginBottom="@dimen/spacing_middle">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_appaterno"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/transparent"
-                    android:hint="Apellido Paterno"
-                    android:imeOptions="actionNext" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/grey_10" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_middle"
-                android:layout_marginBottom="@dimen/spacing_middle">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_apmaterno"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/transparent"
-                    android:hint="Apellido Materno"
-                    android:imeOptions="actionNext" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_middle"
-                android:layout_marginBottom="@dimen/spacing_middle">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_direccion"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/transparent"
-                    android:hint="Dirección"
-                    android:imeOptions="actionNext" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Documento"></TextView>
-
-                <Spinner
-                    android:id="@+id/spinner_document"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:entries="@array/document"
-                    android:spinnerMode="dropdown"></Spinner>
-
-                <EditText
-                    android:id="@+id/edt_documento"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLength="10"></EditText>
-            </LinearLayout>
-
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/spacing_mlarge" />
-
-            <Button
-                android:id="@+id/btnCreateAccount"
-                style="@style/Button.Primary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionDone"
-                android:text="Crear una cuenta"
-                android:textAllCaps="true"></Button>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/spacing_large" />
+                android:maxLength="10"></EditText>
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_direccion"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/transparent"
+                android:hint="Ingrese sus dirección"
+                android:imeOptions="actionNext" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:background="@color/transparent"
+                android:hint="Ingrese un teléfono"
+                android:imeOptions="actionNext" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="17dp"
+                android:hint="Fecha de nacimiento"></TextView>
+
+            <TextView
+                android:id="@+id/edt_birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:drawableLeft="@drawable/ic_today"
+                android:background="@color/transparent"
+                android:hint="(*)"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"></TextView>
+
+        </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="Sexo: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+        <Spinner
+            android:id="@+id/spinner_sexo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/sexo"
+            android:spinnerMode="dropdown"></Spinner>
+    </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnCreateAccount"
+        style="@style/Button.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:imeOptions="actionDone"
+        android:text="Crear una cuenta"
+        android:textAllCaps="true"></Button>
+
+</RelativeLayout>

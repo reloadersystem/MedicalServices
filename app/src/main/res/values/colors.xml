@@ -12,5 +12,6 @@
     <color name="overlay_light_90">#E6FFFFFF</color>
     <color name="deep_orange_800">#D84315</color>
     <color name="grey_90">#263238</color>
+    <color name="grey_60">#666666</color>
     <color name="grey_10">#e6e6e6</color>
 </resources>

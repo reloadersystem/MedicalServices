@@ -5,4 +5,10 @@
         <item>PASS</item>
         <item>CE</item>
     </string-array>
+
+    <string-array name="sexo">
+        <item>Hombre</item>
+        <item>Mujer</item>
+        <item>No mencionar</item>
+    </string-array>
 </resources>
