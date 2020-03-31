@@ -39,4 +39,19 @@ dependencies {
     //SweetAlert
     implementation 'com.github.f0ris.sweetalert:library:1.5.1'
 
+    // Okhttp --------------------------------------------------------------------------------
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
+
+    // Retrofit --------------------------------------------------------------------------------
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.google.code.gson:gson:2.3.1'
+
+    // Firebase --------------------------------------------------------------------------------
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
+
+    // third party dependencies -------------------------------------------------------------------
+    implementation 'com.hbb20:ccp:2.3.7'                               // code picker flags
 }
+apply plugin: 'com.google.gms.google-services'

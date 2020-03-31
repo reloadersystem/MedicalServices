@@ -33,4 +33,10 @@
         <item name="android:background">@drawable/background_spinner</item>
     </style>
 
+    <style name="Button.Disabled" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:background">@drawable/btn_semi_rounded_disabled</item>
+    </style>
+
 </resources>
