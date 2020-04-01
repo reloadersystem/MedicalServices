@@ -1,7 +1,9 @@
 package com.salud.medicalservices.networking;
 
 import com.salud.medicalservices.entidades.AuthUser;
+import com.salud.medicalservices.entidades.Loguin;
 import com.salud.medicalservices.entidades.RegisterUser;
+import com.salud.medicalservices.entidades.Usuario;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -26,8 +28,10 @@ public interface EndPoint {
     //https://mivida.azurewebsites.net/api/users/auth
 
     @POST("users/auth")
-    Call<ResponseBody> postAutenticacion(@Body AuthUser user);
+    Call<Loguin> postAutenticacion(@Body AuthUser user);
 
+    @GET("users/me")
+    Call<Usuario> obtenerInformacionUsuario(@Header("Authorization") String authHeader);
 
 
     Call<ResponseBody> getCursosMail(
