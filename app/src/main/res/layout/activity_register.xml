@@ -39,7 +39,7 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edt_appaterno"
+                android:id="@+id/edt_apellidos"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/transparent"
@@ -76,7 +76,7 @@
                 android:background="@color/transparent"
                 android:hint="Password  (*)"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress" />
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,6 +84,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -136,53 +137,117 @@
 
 
         <LinearLayout
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textSize="17dp"
-                android:hint="Fecha de nacimiento"></TextView>
+                android:hint="Fecha de nacimiento"
+                android:textSize="17dp"></TextView>
 
             <TextView
                 android:id="@+id/edt_birthday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:drawableLeft="@drawable/ic_today"
                 android:background="@color/transparent"
+                android:drawableLeft="@drawable/ic_today"
                 android:hint="(*)"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"></TextView>
 
         </LinearLayout>
 
-    <LinearLayout
+        <LinearLayout
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:text="Sexo: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
-
-        <Spinner
-            android:id="@+id/spinner_sexo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/sexo"
-            android:spinnerMode="dropdown"></Spinner>
-    </LinearLayout>
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sexo: "></TextView>
+
+            <Spinner
+                android:id="@+id/spinner_sexo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/sexo"
+                android:spinnerMode="dropdown"></Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cod.Pais"></TextView>
+
+            <TextView
+                android:id="@+id/txt_codigopais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="+51"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Cod.Dep"></TextView>
+
+            <TextView
+                android:id="@+id/txt_departamento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="060"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Cod.Prov"></TextView>
+
+            <TextView
+                android:id="@+id/txt_provincia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="08"></TextView>
 
 
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Distrito"></TextView>
+
+            <TextView
+                android:id="@+id/txt_distrito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Miraflores"></TextView>
+        </LinearLayout>
     </LinearLayout>
 
 

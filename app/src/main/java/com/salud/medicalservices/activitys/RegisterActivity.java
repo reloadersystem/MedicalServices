@@ -2,6 +2,7 @@ package com.salud.medicalservices.activitys;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.salud.medicalservices.R;
-import com.salud.medicalservices.utils.ShareDataRead;
 import com.salud.medicalservices.utils.Tools;
 
 import java.util.Calendar;
@@ -26,11 +26,13 @@ import androidx.appcompat.widget.Toolbar;
 public class RegisterActivity extends AppCompatActivity {
     Toolbar toolbar;
     Button mCreateAccountBtn;
-    EditText edt_mail, edt_nombres, edt_appaterno;
-    Spinner spinner_document;
-    String dataSpinner;
+    EditText edt_mail, edt_nombres, edt_apellidos, edt_password, edt_phone;
+    Spinner spinner_document, spinner_sexo;
+    String spinnerDocumento, spinnerSexo;
     TextView edt_documento, edt_birthday;
     EditText edt_direccion;
+
+    TextView txt_codigopais, txt_departamento, txt_distrito, txt_provincia;
 
     DatePickerDialog.OnDateSetListener setListener;
 
@@ -44,12 +46,20 @@ public class RegisterActivity extends AppCompatActivity {
 
         edt_mail = findViewById(R.id.edt_mail);
         edt_nombres = findViewById(R.id.edt_nombres);
-        edt_appaterno = findViewById(R.id.edt_appaterno);
+        edt_apellidos = findViewById(R.id.edt_apellidos);
+        edt_password = findViewById(R.id.edt_password);
         edt_birthday = findViewById(R.id.edt_birthday);
-
+        edt_phone = findViewById(R.id.edt_phone);
         spinner_document = findViewById(R.id.spinner_document);
+        spinner_sexo = findViewById(R.id.spinner_sexo);
         edt_documento = findViewById(R.id.edt_documento);
         edt_direccion = findViewById(R.id.edt_direccion);
+
+        txt_codigopais = findViewById(R.id.txt_codigopais);
+        txt_departamento = findViewById(R.id.txt_departamento);
+        txt_distrito = findViewById(R.id.txt_distrito);
+        txt_provincia = findViewById(R.id.txt_provincia);
+
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Complete el formulario");
@@ -61,14 +71,29 @@ public class RegisterActivity extends AppCompatActivity {
         final int month = calendar.get(calendar.MONTH);
         final int day = calendar.get(calendar.DAY_OF_MONTH);
 
+
+        //902293313
+
         //Setting the ArrayAdapter data on the Spinner
 
         spinner_document.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
 
-                dataSpinner = adapterView.getItemAtPosition(position).toString();
+                spinnerDocumento = adapterView.getItemAtPosition(position).toString();
                 //Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinner_sexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                spinnerSexo = adapterView.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -81,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterActivity.this, android.R.style.Theme_Holo_Dialog_MinWidth,
+                DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterActivity.this, android.R.style.Theme_Holo_Light_Dialog,
                         setListener, year, month, day);
                 datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -96,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
 
                 String date = day + "/" + month + "/" + year;
-                edt_birthday.setText("  "+ date);
+                edt_birthday.setText("  " + date);
 
 
             }
@@ -107,57 +132,46 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String userName = edt_nombres.getText().toString().trim();
-                String userMail = edt_mail.getText().toString().trim();
-                String userPaterno = edt_appaterno.getText().toString().trim();
+                validate();
 
-                String documento = edt_documento.getText().toString().trim();
-                String direccion = edt_direccion.getText().toString().trim();
 
-                String phoneNumber = ShareDataRead.obtenerValor(getApplicationContext(), "PhoneNumber");
-
-//                RegisterUser registerUser = new RegisterUser(phoneNumber, userName + " " + userPaterno + " " + userMaterno, userPaterno, userMaterno, userMail, direccion, "-1215645641", dataSpinner, documento, "APPC");
-//                MethodWs methodWs = HelperWs.getConfiguration(getApplicationContext()).create(MethodWs.class);
-//                Call<ResponseBody> responseBodyCall = methodWs.postRegistrar(registerUser);
-//                responseBodyCall.enqueue(new Callback<ResponseBody>() {
-//
-//                    @Override
-//                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                        ResponseBody informacion = response.body();
-//
-//                        if (response.isSuccessful()) {
-//                            try {
-//                                String cadena_respuesta = informacion.string();
-//                                Log.v("RsptaResponsePost", cadena_respuesta);
-//                                JSONObject jsonObject = new JSONObject(cadena_respuesta);
-//                                int resp = jsonObject.getInt("RespuestaCodigo");
-//
-//                                if (resp > 0) {
-//                                    guardarValor(getApplicationContext(), "userid", userName);
-//                                    guardarValor(getApplicationContext(), "userMail", userMail);
-//                                    guardarValor(getApplicationContext(), "userMail", userMail);
-//                                    guardarValor(getApplicationContext(), "NombreCompleto", userName);
-//                                    guardarValor(getApplicationContext(), "userPaterno", userPaterno);
-//                                    guardarValor(getApplicationContext(), "userMaterno", userMaterno);
-//
-//                                    Intent homeIntent = new Intent(RegisterActivity.this, MainActivity.class);
-//                                    startActivity(homeIntent);
-//                                    finish();
-//                                }
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                            Log.e("infoResponsePost", informacion.toString());
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                        Log.e("infoResponseErrorPost", t.getMessage());
-//                    }
-//                });
             }
         });
+    }
+
+    private void validate() {
+
+        String firstName = edt_nombres.getText().toString().trim();
+        String lastName = edt_mail.getText().toString().trim();
+        String email = edt_apellidos.getText().toString().trim();
+        String identityDocument = edt_documento.getText().toString().trim();
+        String address = edt_direccion.getText().toString().trim();
+        String password = edt_password.getText().toString().trim();
+        String phone = edt_phone.getText().toString().trim();
+        String birthDate = edt_birthday.getText().toString().trim();
+        String codigoDepartamento = txt_departamento.getText().toString().trim();
+        String codigoDistrito = txt_distrito.getText().toString().trim();
+        String codigoProvincia = txt_provincia.getText().toString().trim();
+        String codigoPais = txt_codigopais.getText().toString().trim();
+        String genero = spinnerSexo;
+        String userRole = "User";
+
+        Intent intent = new Intent(RegisterActivity.this, AuthPhoneActivity.class);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
+        intent.putExtra("email", email);
+        intent.putExtra("identityDocument", identityDocument);
+        intent.putExtra("address", address);
+        intent.putExtra("phone", phone);
+        intent.putExtra("birthDate", birthDate);
+        intent.putExtra("codigoDepartamento", codigoDepartamento);
+        intent.putExtra("codigoDistrito", codigoDistrito);
+        intent.putExtra("codigoProvincia", codigoProvincia);
+        intent.putExtra("codigoPais", codigoPais);
+        intent.putExtra("genero", genero);
+        intent.putExtra("password", password);
+        intent.putExtra("userRole", userRole);
+        startActivity(intent);
     }
 
 

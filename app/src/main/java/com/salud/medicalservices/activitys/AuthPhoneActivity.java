@@ -48,6 +48,8 @@ public class AuthPhoneActivity extends AppCompatActivity {
 
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
+    String firstName,lastName,email,identityDocument,address,phone, birthDate,codigoDepartamento,codigoDistrito,codigoPais,genero,userRole,codigoProvincia;
+    String password;
     private static final String TAG = "AuthPhoneActivity";
 
     @Override
@@ -65,6 +67,26 @@ public class AuthPhoneActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_cargando);
         mFirebaseAuth = FirebaseAuth.getInstance();
         mCurrentUser = mFirebaseAuth.getCurrentUser();
+
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            firstName = bundle.getString("firstName");
+            lastName = bundle.getString("lastName");
+            email = bundle.getString("email");
+            identityDocument = bundle.getString("identityDocument");
+            address = bundle.getString("address");
+            phone = bundle.getString("phone");
+            birthDate = bundle.getString("birthDate");
+            genero = bundle.getString("genero");
+            codigoPais = bundle.getString("codigoPais");
+            codigoDepartamento = bundle.getString("codigoDepartamento");
+            codigoProvincia = bundle.getString("codigoProvincia");
+            codigoDistrito = bundle.getString("codigoDistrito");
+            password = bundle.getString("password");
+            userRole = bundle.getString("userRole");
+        }
 
         mTerms.setText(Html.fromHtml(getResources().getString(R.string.text_terms_and_conditions)));
 
@@ -150,10 +172,27 @@ public class AuthPhoneActivity extends AppCompatActivity {
             public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(s, forceResendingToken);
                 loadingDialogCustom.dismissDialog();
+
                 Intent otpIntent = new Intent(AuthPhoneActivity.this, OtpActivity.class);
                 otpIntent.putExtra("AuthCredentials", s);
 //                otpIntent.putExtra("PhoneNumber", mCompletePhoneNumber);
                 otpIntent.putExtra("PhoneNumber", mCompletePhoneNumber);
+
+                otpIntent.putExtra("firstName", firstName);
+                otpIntent.putExtra("lastName", lastName);
+                otpIntent.putExtra("email", email);
+                otpIntent.putExtra("identityDocument", identityDocument);
+                otpIntent.putExtra("address", address);
+                otpIntent.putExtra("phone", phone);
+                otpIntent.putExtra("birthDate", birthDate);
+                otpIntent.putExtra("genero", genero);
+                otpIntent.putExtra("codigoPais", codigoPais);
+                otpIntent.putExtra("codigoDepartamento", codigoDepartamento);
+                otpIntent.putExtra("codigoProvincia", codigoProvincia);
+                otpIntent.putExtra("codigoDistrito", codigoDistrito);
+                otpIntent.putExtra("password", password);
+                otpIntent.putExtra("userRole", userRole);
+
                 startActivity(otpIntent);
 
             }
@@ -164,9 +203,9 @@ public class AuthPhoneActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (mCurrentUser != null) {
-            sendUserToHome();
-        }
+//        if (mCurrentUser != null) {
+//            sendUserToHome();
+//        }
     }
 
 

@@ -7,8 +7,7 @@
     </string-array>
 
     <string-array name="sexo">
-        <item>Hombre</item>
-        <item>Mujer</item>
-        <item>No mencionar</item>
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
 </resources>

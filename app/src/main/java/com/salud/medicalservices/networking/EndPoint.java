@@ -1,9 +1,13 @@
 package com.salud.medicalservices.networking;
 
+import com.salud.medicalservices.entidades.RegisterUser;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 
 public interface EndPoint {
 
@@ -11,6 +15,9 @@ public interface EndPoint {
 
     @GET("users/me")
     Call<ResponseBody> getInfo(@Header("Authorization") String authHeader);
+
+    @POST("users")
+    Call<ResponseBody> postRegistrarUsuario(@Body RegisterUser user);
 
     //llamar asi en el activity
 
