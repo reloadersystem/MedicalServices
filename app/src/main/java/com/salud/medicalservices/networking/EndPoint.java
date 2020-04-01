@@ -1,5 +1,6 @@
 package com.salud.medicalservices.networking;
 
+import com.salud.medicalservices.entidades.AuthUser;
 import com.salud.medicalservices.entidades.RegisterUser;
 
 import okhttp3.ResponseBody;
@@ -8,16 +9,32 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface EndPoint {
 
 
-
-    @GET("users/me")
-    Call<ResponseBody> getInfo(@Header("Authorization") String authHeader);
+//
+//    @POST("users/me")
+//    Call<ResponseBody> getInfo(@Header("Authorization") String authHeader);
 
     @POST("users")
     Call<ResponseBody> postRegistrarUsuario(@Body RegisterUser user);
+
+
+
+    //https://mivida.azurewebsites.net/api/users/auth
+
+    @POST("users/auth")
+    Call<ResponseBody> postAutenticacion(@Body AuthUser user);
+
+
+
+    Call<ResponseBody> getCursosMail(
+            @Query("courseStates") String courseStates,
+            @Query("studentId") String studentId,
+            @Query("teacherId") String teacherId,
+            @Query("access_token") String access_token);
 
     //llamar asi en el activity
 

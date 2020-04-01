@@ -48,7 +48,7 @@ public class AuthPhoneActivity extends AppCompatActivity {
 
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
-    String firstName,lastName,email,identityDocument,address,phone, birthDate,codigoDepartamento,codigoDistrito,codigoPais,genero,userRole,codigoProvincia;
+    String firstName, lastName, email, identityDocument, address, phone, birthDate, codigoDepartamento, codigoDistrito, codigoPais, genero, userRole, codigoProvincia;
     String password;
     private static final String TAG = "AuthPhoneActivity";
 
@@ -124,13 +124,6 @@ public class AuthPhoneActivity extends AppCompatActivity {
                     loadingDialogCustom = new LoadingDialogCustom(AuthPhoneActivity.this, "Enviando Código");
                     loadingDialogCustom.startLoadingDialog();
 
-
-//                                        String phoneNumber = mPhoneNumber.getText().toString();
-//                                        mCompletePhoneNumber = "+" + countryCode + phoneNumber;
-                    // mCompletePhoneNumber = phoneNumber;
-                    //String numberTelephone = "+"+ccpCodigo.getSelectedCountryCode()+etCelular.getText().toString();
-                    //solicitudOTP(numberTelephone);
-
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(
                             mCompletePhoneNumber,
                             60,
@@ -175,9 +168,7 @@ public class AuthPhoneActivity extends AppCompatActivity {
 
                 Intent otpIntent = new Intent(AuthPhoneActivity.this, OtpActivity.class);
                 otpIntent.putExtra("AuthCredentials", s);
-//                otpIntent.putExtra("PhoneNumber", mCompletePhoneNumber);
                 otpIntent.putExtra("PhoneNumber", mCompletePhoneNumber);
-
                 otpIntent.putExtra("firstName", firstName);
                 otpIntent.putExtra("lastName", lastName);
                 otpIntent.putExtra("email", email);
@@ -203,9 +194,9 @@ public class AuthPhoneActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        if (mCurrentUser != null) {
-//            sendUserToHome();
-//        }
+        if (mCurrentUser != null) {
+            sendUserToHome();
+        }
     }
 
 

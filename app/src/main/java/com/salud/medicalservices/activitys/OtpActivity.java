@@ -22,6 +22,7 @@ import com.salud.medicalservices.entidades.RegisterUser;
 import com.salud.medicalservices.networking.EndPoint;
 import com.salud.medicalservices.networking.MethodWs;
 import com.salud.medicalservices.utils.LoadingDialogCustom;
+import com.salud.medicalservices.utils.ShareDataRead;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -89,17 +90,16 @@ public class OtpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                loadingDialogCustom.startLoadingDialog();
-//                String otp = mOtpText.getText().toString().trim();
-//
-//                if (otp.isEmpty()) {
-//
-//                } else {
-//
-//                    mBtnVerify.setEnabled(false);
-//                    verifyCode(otp, phoneNumber);
-//                }
-                validarServicio();
+                loadingDialogCustom.startLoadingDialog();
+                String otp = mOtpText.getText().toString().trim();
+
+                if (otp.isEmpty()) {
+
+                } else {
+
+                    mBtnVerify.setEnabled(false);
+                    verifyCode(otp, phoneNumber);
+                }
             }
         });
     }
@@ -117,10 +117,8 @@ public class OtpActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
-                            // validarServicio();
+                            validarServicio();
 
-
-//
 //                            Intent registerIntent = new Intent(OtpActivity.this, ContentMainActivity.class);
 //                            registerIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                            registerIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -165,6 +163,21 @@ public class OtpActivity extends AppCompatActivity {
                         String cadena_respuesta = informacion.string();
                         Log.v("RsptaResponsePost", cadena_respuesta);
 
+                        ShareDataRead.guardarValor(getApplicationContext(), "firstName", firstName);
+                        ShareDataRead.guardarValor(getApplicationContext(), "lastName", lastName);
+                        ShareDataRead.guardarValor(getApplicationContext(), "email", email);
+                        ShareDataRead.guardarValor(getApplicationContext(), "identityDocument", identityDocument);
+                        ShareDataRead.guardarValor(getApplicationContext(), "address", address);
+                        ShareDataRead.guardarValor(getApplicationContext(), "phone", phone);
+                        ShareDataRead.guardarValor(getApplicationContext(), "birthDate", birthDate);
+                        ShareDataRead.guardarValor(getApplicationContext(), "genero", genero);
+                        ShareDataRead.guardarValor(getApplicationContext(), "codigoPais", codigoPais);
+                        ShareDataRead.guardarValor(getApplicationContext(), "codigoDepartamento", codigoDepartamento);
+                        ShareDataRead.guardarValor(getApplicationContext(), "codigoProvincia", codigoProvincia);
+                        ShareDataRead.guardarValor(getApplicationContext(), "codigoDistrito", codigoDistrito);
+                        ShareDataRead.guardarValor(getApplicationContext(), "password", password);
+                        ShareDataRead.guardarValor(getApplicationContext(), "userRole", userRole);
+
                         Intent intent = new Intent(OtpActivity.this, LoginActivity.class);
                         startActivity(intent);
 
@@ -185,9 +198,9 @@ public class OtpActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        if (mCurrentUser != null) {
-//            sendUserToHome();
-//        }
+        if (mCurrentUser != null) {
+            sendUserToHome();
+        }
     }
 
     private void sendUserToHome() {
