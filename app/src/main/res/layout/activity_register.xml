@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -12,6 +14,9 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +33,8 @@
                 android:id="@+id/edt_nombres"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/transparent"
+                android:background="@drawable/vector"
+                android:padding="8dp"
                 android:hint="Ingrese sus nombres  (*)"
                 android:imeOptions="actionNext" />
 
@@ -42,7 +48,8 @@
                 android:id="@+id/edt_apellidos"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/transparent"
+                android:background="@drawable/vector"
+                android:padding="8dp"
                 android:hint="Ingrese sus apellidos  (*)"
                 android:imeOptions="actionNext" />
 
@@ -57,8 +64,9 @@
                 android:id="@+id/edt_mail"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/transparent"
                 android:hint="E-mail  (*) "
+                android:background="@drawable/vector"
+                android:padding="8dp"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress" />
 
@@ -73,8 +81,9 @@
                 android:id="@+id/edt_password"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/transparent"
                 android:hint="Password  (*)"
+                android:background="@drawable/vector"
+                android:padding="8dp"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword" />
 
@@ -104,6 +113,8 @@
                 android:id="@+id/edt_documento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/vector"
+                android:padding="8dp"
                 android:maxLength="10"></EditText>
         </LinearLayout>
 
@@ -115,7 +126,8 @@
                 android:id="@+id/edt_direccion"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/transparent"
+                android:background="@drawable/vector"
+                android:padding="8dp"
                 android:hint="Ingrese sus dirección"
                 android:imeOptions="actionNext" />
 
@@ -129,8 +141,9 @@
                 android:id="@+id/edt_phone"
                 android:layout_width="match_parent"
                 android:layout_height="51dp"
-                android:background="@color/transparent"
                 android:hint="Ingrese un teléfono"
+                android:background="@drawable/vector"
+                android:padding="8dp"
                 android:imeOptions="actionNext" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -147,6 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:hint="Fecha de nacimiento"
+                android:textColor="@color/colorBlack"
                 android:textSize="17dp"></TextView>
 
             <TextView
@@ -164,24 +178,72 @@
 
         <LinearLayout
 
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/colorBlack"
                 android:text="Sexo: "></TextView>
 
             <Spinner
                 android:id="@+id/spinner_sexo"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:entries="@array/sexo"
-                android:spinnerMode="dropdown"></Spinner>
+                android:spinnerMode="dropdown"
+                android:background="@drawable/spinner_disenio_general"/>
+
         </LinearLayout>
 
+        <Spinner
+            android:id="@+id/sp_pais"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="30dp"
+            android:background="@drawable/spinner_disenio_general"/>
+
+        <Spinner
+            android:id="@+id/sp_departamento"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="30dp"
+            android:background="@drawable/spinner_disenio_general"/>
+
+        <Spinner
+            android:id="@+id/sp_provincia"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="30dp"
+            android:background="@drawable/spinner_disenio_general"/>
+
+        <Spinner
+            android:id="@+id/sp_distrito"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="30dp"
+            android:background="@drawable/spinner_disenio_general"/>
+
+        <Button
+            android:id="@+id/btnCreateAccount"
+            android:background="@drawable/border_boton_loguin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:imeOptions="actionDone"
+            android:text="Crear una cuenta"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="true"></Button>
+
+
+        <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -248,18 +310,14 @@
                 android:layout_marginLeft="30dp"
                 android:text="Miraflores"></TextView>
         </LinearLayout>
+        -->
+
+
     </LinearLayout>
 
 
-    <Button
-        android:id="@+id/btnCreateAccount"
-        style="@style/Button.Primary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:imeOptions="actionDone"
-        android:text="Crear una cuenta"
-        android:textAllCaps="true"></Button>
 
-</RelativeLayout>
+
+    </ScrollView>
+
+</LinearLayout>

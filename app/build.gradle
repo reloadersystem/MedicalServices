@@ -53,5 +53,8 @@ dependencies {
 
     // third party dependencies -------------------------------------------------------------------
     implementation 'com.hbb20:ccp:2.3.7'                               // code picker flags
+
+    //Libreria Sarripar
+    implementation 'com.mobsandgeeks:android-saripaar:1.0.3'
 }
 apply plugin: 'com.google.gms.google-services'

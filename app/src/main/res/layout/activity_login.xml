@@ -137,7 +137,7 @@
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ln_datos"
         android:layout_alignParentRight="true"
@@ -175,6 +175,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="60"
                 android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/colorBlack"
                 android:text="¿Aún no tienes cuenta?" />
 
             <TextView
@@ -184,6 +185,7 @@
                 android:layout_weight="40"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Regístrate aquí"
+                android:textColor="@color/colorBlack"
                 android:textSize="20dp" />
 
         </LinearLayout>
@@ -194,6 +196,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
+            android:textColor="@color/colorBlack"
             android:text="¿Olvidaste tu Contraseña?"></TextView>
 
     </LinearLayout>
