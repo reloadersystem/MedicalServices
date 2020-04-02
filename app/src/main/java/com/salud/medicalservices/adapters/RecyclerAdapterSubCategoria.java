@@ -9,42 +9,43 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.salud.medicalservices.R;
-import com.salud.medicalservices.entidades.Categorias;
-import com.salud.medicalservices.interfaces.OnProductosListener;
+import com.salud.medicalservices.entidades.SubCategorias;
+import com.salud.medicalservices.entidades.SubCategorias;
+import com.salud.medicalservices.interfaces.OnSubCategoriasListener;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerProductosAdapter extends RecyclerView.Adapter<RecyclerProductosAdapter.MyViewHolder> {
+public class RecyclerAdapterSubCategoria extends RecyclerView.Adapter<RecyclerAdapterSubCategoria.MyViewHolder> {
 
     private Context mContext;
-    private List<Categorias> mlistCategorias;
-    OnProductosListener onProductosListener;
+    private List<SubCategorias> mlistCategorias;
+    OnSubCategoriasListener onSubCategoriasListener;
 
-    public void setOnProductosListener(OnProductosListener onProductosListener) {
-        this.onProductosListener = onProductosListener;
+    public void setOnSubCategoriasListener(OnSubCategoriasListener onSubCategoriasListener) {
+        this.onSubCategoriasListener = onSubCategoriasListener;
     }
 
-    public RecyclerProductosAdapter(Context mContext, List<Categorias> mItemCategorias) {
+    public RecyclerAdapterSubCategoria(Context mContext, List<SubCategorias> mItemCategorias) {
         this.mContext = mContext;
         this.mlistCategorias = mItemCategorias;
     }
 
     @NonNull
     @Override
-    public RecyclerProductosAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public RecyclerAdapterSubCategoria.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.item_servicios, viewGroup, false);
-        return new RecyclerProductosAdapter.MyViewHolder(view, onProductosListener);
+        return new RecyclerAdapterSubCategoria.MyViewHolder(view, onSubCategoriasListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerProductosAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerAdapterSubCategoria.MyViewHolder holder, int position) {
         holder.tvDescription.setText(mlistCategorias.get(position).getName());
-       // holder.img_recursoproducto.setImageResource(mlistCategorias.get(position).getIcon());
+        // holder.img_recursoproducto.setImageResource(mlistCategorias.get(position).getIcon());
     }
 
     @Override
@@ -59,8 +60,7 @@ public class RecyclerProductosAdapter extends RecyclerView.Adapter<RecyclerProdu
         private TextView tvDescription;
         private LinearLayout ln_categoria;
 
-
-        public MyViewHolder(@NonNull View itemView, final OnProductosListener onProductosListener) {
+        public MyViewHolder(@NonNull View itemView, final OnSubCategoriasListener onSubCategoriasListener) {
             super(itemView);
 
             img_recursoproducto = itemView.findViewById(R.id.img_recursoproducto);
@@ -71,7 +71,7 @@ public class RecyclerProductosAdapter extends RecyclerView.Adapter<RecyclerProdu
                 @Override
                 public void onClick(View view) {
                     int posicion = getAdapterPosition();
-                    onProductosListener.onImagenClicked(posicion);
+                    onSubCategoriasListener.onImagenClicked(posicion);
 
                 }
             });

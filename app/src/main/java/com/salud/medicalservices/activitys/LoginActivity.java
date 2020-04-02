@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.salud.medicalservices.MainActivity;
 import com.salud.medicalservices.R;
 import com.salud.medicalservices.contenedores.ContentMainActivity;
 import com.salud.medicalservices.entidades.AuthUser;
@@ -27,7 +25,6 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -94,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void loginServicio() {
 
-        pd = new SweetAlertDialog(LoginActivity.this,SweetAlertDialog.PROGRESS_TYPE);
+        pd = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
         pd.setContentText("Por favor, espere...");
         pd.setCancelable(false);
@@ -117,12 +114,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         Loguin user_response = response.body();
 
-                        if (response.code()== Constantes.SUCCESS){
-
-                            guardarPreferenciaPerfil(Constantes.ROL_USER,user_response.getToken());
+                        if (response.code() == Constantes.SUCCESS) {
+                            guardarPreferenciaPerfil(Constantes.ROL_USER, user_response.getToken());
                             obtenerDatosUsuario(user_response.getToken());
-                        }
-                        else if(response.code()== Constantes.BAD_REQUEST){
+                        } else if (response.code() == Constantes.BAD_REQUEST) {
 
                             pd.dismiss();
 
@@ -132,8 +127,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             pd.setCancelable(false);
                             pd.show();
                             return;
-                        }
-                        else{
+                        } else {
 
                             pd.dismiss();
 
@@ -150,8 +144,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         e.printStackTrace();
                     }
 
-                }
-                else{
+                } else {
 
                     pd.dismiss();
 
@@ -178,23 +171,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return;
             }
         });
-
-//        firstName = "Resembrink";
-//        lastName = "Correa";
-//        email = "rcorrea@gmail.com";
-//        identityDocument = "42008299";
-//        address = "Santa Anita";
-//        phone = "979773864";
-//        birthDate = "24/09/1992";
-//        genero = "Male";
-//        codigoPais = "051";
-//        codigoDepartamento = "015";
-//        codigoProvincia = "010";
-//        codigoDistrito = "010";
-//        password = "9Resembrink";
-//        userRole = "User";
-
-
     }
 
     private void obtenerDatosUsuario(String token) {
@@ -203,25 +179,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         //Llamamos al endpoint
         Call<Usuario> response =
-                endPoint.obtenerInformacionUsuario(Constantes.AUTH+token);
+                endPoint.obtenerInformacionUsuario(Constantes.AUTH + token);
 
         response.enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
 
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     Usuario usuario = response.body();
 
-                    if (response.code()== Constantes.SUCCESS){
+                    if (response.code() == Constantes.SUCCESS) {
 
                         guardarPreferenciaUsuario(usuario);
                         pd.dismiss();
 
                         Intent i = new Intent(LoginActivity.this, ContentMainActivity.class);
                         startActivity(i);
+                        finish();
 
-                    }else{
+                    } else {
 
                         pd.dismiss();
 
@@ -232,8 +209,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         pd.show();
                         return;
                     }
-                }
-                else{
+                } else {
 
                     pd.dismiss();
 
@@ -261,7 +237,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    private void guardarPreferenciaPerfil(String perfil,String token) {
+    private void guardarPreferenciaPerfil(String perfil, String token) {
         SharedPreferences.Editor editor = getSharedPreferences("perfil", 0).edit();
         editor.putString("perfil", perfil);
         editor.putString("token", token);
@@ -283,7 +259,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editor.putString("phone", usuario.getPhone());
         editor.putString("identityDocument", usuario.getIdentityDocument());
         editor.putString("birthDate", usuario.getBirthDate());
-
         editor.commit();
 
 

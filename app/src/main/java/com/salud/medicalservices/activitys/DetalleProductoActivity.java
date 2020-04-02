@@ -21,7 +21,7 @@ public class DetalleProductoActivity extends AppCompatActivity {
     RecyclerView recycler_listprod;
     private static ArrayList<ItemProductos> listProductos;
 
-    private String productoName;
+    private String productoName, productoId, subCategories;
     private int img_root;
 
     ImageView img_toolbardetalle;
@@ -38,13 +38,16 @@ public class DetalleProductoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             productoName = (String) bundle.get("productoName");
-            img_root = bundle.getInt("img_root");
+            productoId = (String) bundle.get("productoId");
+
+            // img_root = bundle.getInt("img_root");
         }
+
+//        Log.v("subData", subCategories);
 
         setTitle(productoName);
         img_toolbardetalle.setImageResource(img_root);
@@ -57,13 +60,13 @@ public class DetalleProductoActivity extends AppCompatActivity {
             @Override
             public void onImagenClicked(int position) {
 
-                String nombre_comercial= listProductos.get(position).getNombre_comercial();
-                String nombre_generico= listProductos.get(position).getNombre_generico();
-                String nombre_laboratorio= listProductos.get(position).getNombre_laboratorio();
-                String nombre_presentacion= listProductos.get(position).getNombre_presentacion();
-                String precio= listProductos.get(position).getPrecio();
-                int image_producto= listProductos.get(position).getImagen_logo();
-                String idUnique= listProductos.get(position).getIdUnique();
+                String nombre_comercial = listProductos.get(position).getNombre_comercial();
+                String nombre_generico = listProductos.get(position).getNombre_generico();
+                String nombre_laboratorio = listProductos.get(position).getNombre_laboratorio();
+                String nombre_presentacion = listProductos.get(position).getNombre_presentacion();
+                String precio = listProductos.get(position).getPrecio();
+                int image_producto = listProductos.get(position).getImagen_logo();
+                String idUnique = listProductos.get(position).getIdUnique();
 
                 Intent intent = new Intent(DetalleProductoActivity.this, InfoProductoActivity.class);
                 intent.putExtra("nombre_comercial", nombre_comercial);

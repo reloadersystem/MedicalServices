@@ -33,12 +33,11 @@ public interface EndPoint {
     @GET("users/me")
     Call<Usuario> obtenerInformacionUsuario(@Header("Authorization") String authHeader);
 
+    @GET("categories")
+    Call<ResponseBody> getCategorias(@Header("Authorization") String authHeader,
+            @Query("Type") String type);
 
-    Call<ResponseBody> getCursosMail(
-            @Query("courseStates") String courseStates,
-            @Query("studentId") String studentId,
-            @Query("teacherId") String teacherId,
-            @Query("access_token") String access_token);
+
 
     //llamar asi en el activity
 
