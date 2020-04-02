@@ -90,6 +90,8 @@ public class AuthPhoneActivity extends AppCompatActivity {
 
         mTerms.setText(Html.fromHtml(getResources().getString(R.string.text_terms_and_conditions)));
 
+        mPhoneNumber.setText(phone);
+        enableButton();
 
         mPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -99,7 +101,7 @@ public class AuthPhoneActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                enableButton();
+
             }
 
             @Override

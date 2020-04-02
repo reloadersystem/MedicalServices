@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "757415093149",
-    "firebase_url": "https://medicalservices-ec4bd.firebaseio.com",
-    "project_id": "medicalservices-ec4bd",
-    "storage_bucket": "medicalservices-ec4bd.appspot.com"
+    "project_number": "367219593557",
+    "firebase_url": "https://mividaproject-e16da.firebaseio.com",
+    "project_id": "mividaproject-e16da",
+    "storage_bucket": "mividaproject-e16da.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:757415093149:android:8acbc1eb693534d6a58574",
+        "mobilesdk_app_id": "1:367219593557:android:3e6b66b9e1eed510905fdc",
         "android_client_info": {
           "package_name": "com.salud.medicalservices"
         }
       },
       "oauth_client": [
         {
-          "client_id": "757415093149-09s8q1oh5od5bdbcs3r7qgu06q7a8le7.apps.googleusercontent.com",
+          "client_id": "367219593557-npo54kmrfjg41q8cvavo9t85fbrhh4pb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.salud.medicalservices",
-            "certificate_hash": "77f716e4ca0af90e46a63b09981372263312421a"
+            "certificate_hash": "0313bd946df14319cb724b13050f23ced3a6e89c"
           }
         },
         {
-          "client_id": "757415093149-eci8v2gn42bcsfjah9dgn8igr6fhd3r0.apps.googleusercontent.com",
+          "client_id": "367219593557-o9a0k34ttm5s8nu60a84ncpifk728hu6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDG41c83QO-5H4msBvp6h9BgSliQAmOgEE"
+          "current_key": "AIzaSyC17aYu-82rHZZlx99chqAQ6PraOfH7tYA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "757415093149-eci8v2gn42bcsfjah9dgn8igr6fhd3r0.apps.googleusercontent.com",
+              "client_id": "367219593557-o9a0k34ttm5s8nu60a84ncpifk728hu6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -85,6 +85,7 @@ public class OtpActivity extends AppCompatActivity {
         mCurrentUser = mFirebaseAuth.getCurrentUser();
         mAuthVerificationId = getIntent().getStringExtra("AuthCredentials");
         final String phoneNumber = getIntent().getStringExtra("PhoneNumber");
+        Log.v("numero", phoneNumber);
 
         mBtnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +100,7 @@ public class OtpActivity extends AppCompatActivity {
 
                     mBtnVerify.setEnabled(false);
                     verifyCode(otp, phoneNumber);
+                    //979773864
                 }
             }
         });
@@ -117,7 +119,9 @@ public class OtpActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
-                            validarServicio();
+                          //  validarServicio();
+
+                            Toast.makeText(OtpActivity.this, phoneNumber, Toast.LENGTH_SHORT).show();
 
 //                            Intent registerIntent = new Intent(OtpActivity.this, ContentMainActivity.class);
 //                            registerIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -220,5 +224,4 @@ public class OtpActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

@@ -580,18 +580,6 @@ public class RegisterActivity extends AppCompatActivity implements Validator.Val
         startActivity(intent);
     }
 
-
-    private static String PREFS_KEY = "UserLoginPref";
-
-    public static void guardarValor(Context context, String keyPref, String valor) {
-        SharedPreferences settings = context.getSharedPreferences(PREFS_KEY, MODE_PRIVATE);
-        SharedPreferences.Editor editor;
-        editor = settings.edit();
-        editor.putString(keyPref, valor);
-        editor.commit();
-    }
-
-
     @Override
     public void onValidationSucceeded() {
 
