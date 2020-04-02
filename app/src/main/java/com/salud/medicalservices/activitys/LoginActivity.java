@@ -8,9 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mobsandgeeks.saripaar.Rule;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Required;
 import com.salud.medicalservices.R;
 import com.salud.medicalservices.contenedores.ContentMainActivity;
+import com.salud.medicalservices.entidades.APIError;
 import com.salud.medicalservices.entidades.AuthUser;
 import com.salud.medicalservices.entidades.ItemServicios;
 import com.salud.medicalservices.entidades.Loguin;
@@ -18,6 +23,7 @@ import com.salud.medicalservices.entidades.Usuario;
 import com.salud.medicalservices.networking.EndPoint;
 import com.salud.medicalservices.networking.MethodWs;
 import com.salud.medicalservices.utils.Constantes;
+import com.salud.medicalservices.utils.ErrorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +35,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Validator.ValidationListener {
 
-    TextView txv_sendpassword, txt_registrate;
+
+    @Required(order = 1, message = "Debe ingresar sus nombres")
+    TextView txv_sendpassword;
+
+    @Required(order = 2, message = "Debe ingresar sus nombres")
+    TextView txt_registrate;
+
+
     Button btnIngresar;
 
     RecyclerView recycler;
@@ -40,6 +53,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText etEmail, etcontrasenha;
 
     SweetAlertDialog pd;
+
+    Validator validator;
 
 
     @Override
@@ -60,6 +75,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         txt_registrate.setOnClickListener(this);
         btnIngresar.setOnClickListener(this);
 
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
 
     }
 
@@ -75,7 +93,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             break;
 
             case R.id.btnLogin: {
-                loginServicio();
+
+                validator.validate();
             }
             break;
 
@@ -146,9 +165,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     pd.dismiss();
 
+                    APIError error = ErrorUtils.parseError(response);
+
                     pd = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE);
                     pd.getProgressHelper().setBarColor(Color.parseColor("#03A9F4"));
-                    pd.setContentText("Hubo un problema al procesar su solicitud");
+                    pd.setContentText(error.getDetail());
                     pd.setCancelable(false);
                     pd.show();
                     return;
@@ -211,9 +232,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     pd.dismiss();
 
+                    APIError error = ErrorUtils.parseError(response);
+
                     pd = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE);
                     pd.getProgressHelper().setBarColor(Color.parseColor("#03A9F4"));
-                    pd.setContentText("Hubo un problema al procesar su solicitud");
+                    pd.setContentText(error.getDetail());
                     pd.setCancelable(false);
                     pd.show();
                     return;
@@ -260,5 +283,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editor.commit();
 
 
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+        loginServicio();
+    }
+
+    @Override
+    public void onValidationFailed(View failedView, Rule<?> failedRule) {
+
+        final String failureMessage = failedRule.getFailureMessage();
+        if (failedView instanceof EditText) {
+            EditText failed = (EditText) failedView;
+            failed.requestFocus();
+            failed.setError(failureMessage);
+        } else {
+            Toast.makeText(getApplicationContext(), failureMessage, Toast.LENGTH_SHORT).show();
+        }
     }
 }
