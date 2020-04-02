@@ -61,15 +61,13 @@ public class OtpActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-
-
         if (bundle != null) {
             firstName = bundle.getString("firstName");
             lastName = bundle.getString("lastName");
             email = bundle.getString("email");
             identityDocument = bundle.getString("identityDocument");
             address = bundle.getString("address");
-            phone = bundle.getString("phone");
+           // phone = bundle.getString("phone");
             birthDate = bundle.getString("birthDate");
             genero = bundle.getString("genero");
             codigoPais = bundle.getString("codigoPais");
@@ -84,8 +82,9 @@ public class OtpActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mCurrentUser = mFirebaseAuth.getCurrentUser();
         mAuthVerificationId = getIntent().getStringExtra("AuthCredentials");
-        final String phoneNumber = getIntent().getStringExtra("PhoneNumber");
-        Log.v("numero", phoneNumber);
+
+       final String phoneNumber = getIntent().getStringExtra("phone");
+        Log.v("numero", mAuthVerificationId);
 
         mBtnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +142,7 @@ public class OtpActivity extends AppCompatActivity {
 //        email = "rcorrea@gmail.com";
 //        identityDocument = "42008299";
 //        address = "Santa Anita";
-//        phone = "979773864";
+//        phone = "979773864/961162784";
 //        birthDate = "24/09/1992";
 //        genero = "Male";
 //        codigoPais = "051";
