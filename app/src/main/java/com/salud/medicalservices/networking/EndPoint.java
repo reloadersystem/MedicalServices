@@ -20,17 +20,8 @@ import retrofit2.http.Query;
 
 public interface EndPoint {
 
-
-//
-//    @POST("users/me")
-//    Call<ResponseBody> getInfo(@Header("Authorization") String authHeader);
-
     @POST("users")
     Call<ResponseBody> postRegistrarUsuario(@Body RegisterUser user);
-
-
-
-    //https://mivida.azurewebsites.net/api/users/auth
 
     @POST("users/auth")
     Call<Loguin> postAutenticacion(@Body AuthUser user);
@@ -55,44 +46,4 @@ public interface EndPoint {
     Call<ResponseDistrito> obtenerDistritos(@Path("idPais") String idPais,
                                            @Path("idDepartamento") String idDepartamento,
                                            @Path("idProvincia") String idProvincia);
-
-
-
-
-
-
-
-    //llamar asi en el activity
-
-    /*
-
-    private void call(String token) {
-
-
-        EndPoint endPoint = HelperWs.getConfiguration().create(EndPoint.class);
-
-        //Llamamos al endpoint
-        Call<ResponseBody> response_categorys =
-                endPoint.getInfo("Bearer"+" "+token);
-
-        response_categorys.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                ResponseBody respuesta = response.body();
-                String ok = "ok";
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                Toast.makeText(MainActivity.this,t.getMessage().toString(),Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-    }
-
-
-     */
 }
