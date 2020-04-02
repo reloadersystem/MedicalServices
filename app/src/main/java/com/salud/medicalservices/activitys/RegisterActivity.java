@@ -22,6 +22,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Required;
 import com.salud.medicalservices.R;
+import com.salud.medicalservices.SendPhoneService;
 import com.salud.medicalservices.entidades.Departamento;
 import com.salud.medicalservices.entidades.Distrito;
 import com.salud.medicalservices.entidades.Pais;
@@ -33,6 +34,7 @@ import com.salud.medicalservices.entidades.response.ResponsePaises;
 import com.salud.medicalservices.entidades.response.ResponseProvincia;
 import com.salud.medicalservices.networking.EndPoint;
 import com.salud.medicalservices.networking.MethodWs;
+import com.salud.medicalservices.utils.ShareDataRead;
 import com.salud.medicalservices.utils.Tools;
 
 import java.util.ArrayList;
@@ -562,21 +564,23 @@ public class RegisterActivity extends AppCompatActivity implements Validator.Val
         String genero = spinnerSexo;
         String userRole = "User";
 
-        Intent intent = new Intent(RegisterActivity.this, AuthPhoneActivity.class);
-        intent.putExtra("firstName", firstName);
-        intent.putExtra("lastName", lastName);
-        intent.putExtra("email", email);
-        intent.putExtra("identityDocument", identityDocument);
-        intent.putExtra("address", address);
-        intent.putExtra("phone", phone);
-        intent.putExtra("birthDate", birthDate);
-        intent.putExtra("codigoDepartamento", codigoDepartamento);
-        intent.putExtra("codigoDistrito", codigoDistrito);
-        intent.putExtra("codigoProvincia", codigoProvincia);
-        intent.putExtra("codigoPais", codigoPais);
-        intent.putExtra("genero", genero);
-        intent.putExtra("password", password);
-        intent.putExtra("userRole", userRole);
+
+        ShareDataRead.guardarValor(getApplicationContext(),"firstName", firstName);
+        ShareDataRead.guardarValor(getApplicationContext(),"lastName", lastName);
+        ShareDataRead.guardarValor(getApplicationContext(),"email", email);
+        ShareDataRead.guardarValor(getApplicationContext(),"identityDocument", identityDocument);
+        ShareDataRead.guardarValor(getApplicationContext(),"address", address);
+        ShareDataRead.guardarValor(getApplicationContext(),"password", password);
+        ShareDataRead.guardarValor(getApplicationContext(),"birthDate", birthDate);
+        ShareDataRead.guardarValor(getApplicationContext(),"codigoDepartamento", codigoDepartamento);
+        ShareDataRead.guardarValor(getApplicationContext(),"codigoDistrito", codigoDistrito);
+        ShareDataRead.guardarValor(getApplicationContext(),"codigoProvincia", codigoProvincia);
+        ShareDataRead.guardarValor(getApplicationContext(),"codigoPais", codigoPais);
+        ShareDataRead.guardarValor(getApplicationContext(),"genero", genero);
+        ShareDataRead.guardarValor(getApplicationContext(),"userRole", userRole);
+
+        Intent intent = new Intent(RegisterActivity.this, SendPhoneService.class);
+
         startActivity(intent);
     }
 

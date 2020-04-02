@@ -2,6 +2,7 @@ package com.salud.medicalservices;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,11 +16,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.salud.medicalservices.activitys.LoginActivity;
+import com.salud.medicalservices.entidades.RegisterUser;
+import com.salud.medicalservices.networking.EndPoint;
+import com.salud.medicalservices.networking.MethodWs;
 import com.salud.medicalservices.utils.LoadingDialogCustom;
+import com.salud.medicalservices.utils.ShareDataRead;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ReceivePhoneActivity extends AppCompatActivity {
 
@@ -33,6 +43,8 @@ public class ReceivePhoneActivity extends AppCompatActivity {
 
     Button mBtnVerify;
     EditText mOtpText;
+
+    String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +64,7 @@ public class ReceivePhoneActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mCurrentUser = mFirebaseAuth.getCurrentUser();
         mAuthVerificationId = getIntent().getStringExtra("AuthCredentials");
-        final String phoneNumber = getIntent().getStringExtra("PhoneNumber");
+        phoneNumber = getIntent().getStringExtra("PhoneNumber");
 
         mBtnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,18 +97,10 @@ public class ReceivePhoneActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            //Verificar si el usuario existe o no en base al numero de telefono enviado en base de datos.
-//                        if(phoneNumber.equals("+51961162784")){//si existe dejar pasar
-//                            if (phoneNumber.equals("+51981179706")) {//si existe dejar pasar
-//
-//                                sendUserToHome();
-//                            } else {
-                            //mostrar formulario de registro
-                            Toast.makeText(getApplicationContext(), phoneNumber, Toast.LENGTH_LONG).show();
-//                            Intent registerIntent = new Intent(ReceivePhoneActivity.this, RegisterActivity.class);
-//                            startActivity(registerIntent);
 
-//                            }
+                            Toast.makeText(getApplicationContext(), phoneNumber, Toast.LENGTH_LONG).show();
+                            //TODO  NUMERO EXITOSO FALTA VALIDAR SERVICIO
+                            validarServicio();
 
                         } else {
                             // Log.e(TAG, "onComplete: " + task.getException().getMessage());
@@ -133,4 +137,55 @@ public class ReceivePhoneActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void validarServicio() {
+
+
+        String firstName = ShareDataRead.obtenerValor(getApplicationContext(), "firstName");
+        String lastName = ShareDataRead.obtenerValor(getApplicationContext(), "lastName");
+        String email = ShareDataRead.obtenerValor(getApplicationContext(), "email");
+        String identityDocument = ShareDataRead.obtenerValor(getApplicationContext(), "identityDocument");
+        String address = ShareDataRead.obtenerValor(getApplicationContext(), "address");
+        String password = ShareDataRead.obtenerValor(getApplicationContext(), "password");
+        String birthDate = ShareDataRead.obtenerValor(getApplicationContext(), "birthDate");
+        String codigoDepartamento = ShareDataRead.obtenerValor(getApplicationContext(), "codigoDepartamento");
+        String codigoDistrito = ShareDataRead.obtenerValor(getApplicationContext(), "codigoDistrito");
+        String codigoProvincia = ShareDataRead.obtenerValor(getApplicationContext(), "codigoProvincia");
+        String codigoPais = ShareDataRead.obtenerValor(getApplicationContext(), "codigoPais");
+        String genero = ShareDataRead.obtenerValor(getApplicationContext(), "genero");
+        String userRole = ShareDataRead.obtenerValor(getApplicationContext(), "userRole");
+
+
+        RegisterUser registerUser = new RegisterUser(firstName, lastName, email, identityDocument, address, phoneNumber, birthDate, genero, codigoPais, codigoDepartamento, codigoProvincia, codigoDistrito, password, userRole);
+        EndPoint endPoint = MethodWs.getConfiguration().create(EndPoint.class);
+        Call<ResponseBody> responseBodyCall = endPoint.postRegistrarUsuario(registerUser);
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                ResponseBody informacion = response.body();
+
+                if (response.isSuccessful()) {
+                    try {
+                        String cadena_respuesta = informacion.string();
+                        Log.v("RsptaResponsePost", cadena_respuesta);
+
+                        Intent intent = new Intent(ReceivePhoneActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Log.e("infoResponsePost", informacion.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("infoResponseErrorPost", t.getMessage());
+            }
+        });
+    }
+
 }
