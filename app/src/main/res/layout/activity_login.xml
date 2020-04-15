@@ -175,7 +175,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="60"
                 android:fontFamily="@font/roboto_medium"
-                android:textColor="@color/colorBlack"
                 android:text="¿Aún no tienes cuenta?" />
 
             <TextView

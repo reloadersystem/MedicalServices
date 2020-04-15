@@ -14,4 +14,11 @@
         <item>Frasco</item>
         <item>Unidades</item>
     </string-array>
+
+    <string name="terminos">Términos y Condiciones</string>
+
+    <string name="mailSendAdmin">medical-vida@hotmail.com</string>
+    <string name="mailSendPass">LimaPeru2020</string>
+    <string name="restore_email">vidamedical.app@hotmail.com</string>
+
 </resources>

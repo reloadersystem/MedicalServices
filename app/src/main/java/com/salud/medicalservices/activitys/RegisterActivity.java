@@ -602,4 +602,10 @@ public class RegisterActivity extends AppCompatActivity implements Validator.Val
             Toast.makeText(getApplicationContext(), failureMessage, Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
+    }
 }
