@@ -3,9 +3,11 @@ package com.salud.medicalservices.activitys;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.salud.medicalservices.R;
+import com.salud.medicalservices.utils.MailJob;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -39,7 +41,15 @@ public class SendPasswordActivity extends AppCompatActivity implements View.OnCl
 
                 String txmail = txt_email.getEditText().getText().toString();
 
+                if (txmail.isEmpty()) {
+                    Toast.makeText(this, "Llena los  campos  requeridos", Toast.LENGTH_SHORT).show();
+                } else {
+                    new MailJob(getString(R.string.mailSendAdmin), getString(R.string.mailSendPass), this).execute(
+                            new MailJob.Mail(getString(R.string.mailSendAdmin), getString(R.string.restore_email), "Restaurar Password", "Email to restaure:"+ txmail)
+                    );
 
+                    txt_email.getEditText().getText().clear();
+                }
                 break;
         }
     }
