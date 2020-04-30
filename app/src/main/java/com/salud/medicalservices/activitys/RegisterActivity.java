@@ -546,8 +546,8 @@ public class RegisterActivity extends AppCompatActivity implements Validator.Val
         }
 
         String firstName = edt_nombres.getText().toString().trim();
-        String lastName = edt_mail.getText().toString().trim();
-        String email = edt_apellidos.getText().toString().trim();
+        String lastName = edt_apellidos.getText().toString().trim();
+        String email = edt_mail.getText().toString().trim();
         String identityDocument = edt_documento.getText().toString().trim();
         String address = edt_direccion.getText().toString().trim();
         String password = edt_password.getText().toString().trim();

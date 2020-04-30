@@ -1,6 +1,7 @@
 package com.salud.medicalservices;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,15 +18,19 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.salud.medicalservices.activitys.LoginActivity;
+import com.salud.medicalservices.activitys.OtpActivity;
+import com.salud.medicalservices.entidades.APIError;
 import com.salud.medicalservices.entidades.RegisterUser;
 import com.salud.medicalservices.networking.EndPoint;
 import com.salud.medicalservices.networking.MethodWs;
+import com.salud.medicalservices.utils.ErrorUtils;
 import com.salud.medicalservices.utils.LoadingDialogCustom;
 import com.salud.medicalservices.utils.ShareDataRead;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +48,8 @@ public class ReceivePhoneActivity extends AppCompatActivity {
 
     Button mBtnVerify;
     EditText mOtpText;
+
+    SweetAlertDialog pd;
 
     String phoneNumber;
 
@@ -98,13 +105,23 @@ public class ReceivePhoneActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
-                            Toast.makeText(getApplicationContext(), phoneNumber, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), phoneNumber, Toast.LENGTH_LONG).show();
                             //TODO  NUMERO EXITOSO FALTA VALIDAR SERVICIO
+                            loadingDialogCustom.dismissDialog();
                             validarServicio();
+
 
                         } else {
                             // Log.e(TAG, "onComplete: " + task.getException().getMessage());
-                            Toast.makeText(ReceivePhoneActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(ReceivePhoneActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            loadingDialogCustom.dismissDialog();
+
+                            pd = new SweetAlertDialog(ReceivePhoneActivity.this, SweetAlertDialog.WARNING_TYPE);
+                            pd.getProgressHelper().setBarColor(Color.parseColor("#03A9F4"));
+                            pd.setContentText(task.getException().getMessage());
+                            pd.setCancelable(false);
+                            pd.show();
+                            return;
                         }
                         mBtnVerify.setEnabled(true);
                         loadingDialogCustom.dismissDialog();
@@ -115,17 +132,7 @@ public class ReceivePhoneActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (mCurrentUser != null) {
-            sendUserToHome();
-        }
-    }
 
-    private void sendUserToHome() {
-        Intent homeIntent = new Intent(ReceivePhoneActivity.this, MainActivity.class);
-        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(homeIntent);
-        finish();
     }
 
     @Override
@@ -140,6 +147,13 @@ public class ReceivePhoneActivity extends AppCompatActivity {
 
     private void validarServicio() {
 
+
+
+        pd = new SweetAlertDialog(ReceivePhoneActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+        pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
+        pd.setContentText("Procesando su solicitud...");
+        pd.setCancelable(false);
+        pd.show();
 
         String firstName = ShareDataRead.obtenerValor(getApplicationContext(), "firstName");
         String lastName = ShareDataRead.obtenerValor(getApplicationContext(), "lastName");
@@ -163,27 +177,61 @@ public class ReceivePhoneActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                ResponseBody informacion = response.body();
+
 
                 if (response.isSuccessful()) {
                     try {
+                        ResponseBody informacion = response.body();
+
                         String cadena_respuesta = informacion.string();
                         Log.v("RsptaResponsePost", cadena_respuesta);
 
-                        Intent intent = new Intent(ReceivePhoneActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        pd.dismiss();
+
+                        new SweetAlertDialog(ReceivePhoneActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Informativo")
+                                .setContentText("Celular validado correctamente!!")
+                                .setConfirmText("Continuar")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+
+                                        Intent intent = new Intent(ReceivePhoneActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }).show();
+
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    Log.e("infoResponsePost", informacion.toString());
+
+                }
+                else{
+
+                    APIError error = ErrorUtils.parseError(response);
+
+                    pd.dismiss();
+
+                    pd = new SweetAlertDialog(ReceivePhoneActivity.this, SweetAlertDialog.WARNING_TYPE);
+                    pd.getProgressHelper().setBarColor(Color.parseColor("#03A9F4"));
+                    pd.setContentText(error.getDetail());
+                    pd.setCancelable(false);
+                    pd.show();
+                    return;
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("infoResponseErrorPost", t.getMessage());
+                pd = new SweetAlertDialog(ReceivePhoneActivity.this, SweetAlertDialog.WARNING_TYPE);
+                pd.getProgressHelper().setBarColor(Color.parseColor("#03A9F4"));
+                pd.setContentText(t.getMessage().toString());
+                pd.setCancelable(false);
+                pd.show();
+                return;
             }
         });
     }

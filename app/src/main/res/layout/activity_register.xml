@@ -35,7 +35,6 @@
                 android:layout_height="40dp"
                 android:background="@drawable/vector"
                 android:padding="8dp"
-                android:text="Resembrink"
                 android:hint="Ingrese sus nombres  (*)"
                 android:imeOptions="actionNext" />
 
@@ -52,7 +51,6 @@
                 android:background="@drawable/vector"
                 android:padding="8dp"
                 android:hint="Ingrese sus apellidos  (*)"
-                android:text="Correa"
                 android:imeOptions="actionNext" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -84,7 +82,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="Password  (*)"
-                android:text="9Resembrink"
                 android:background="@drawable/vector"
                 android:padding="8dp"
                 android:imeOptions="actionNext"
@@ -118,7 +115,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/vector"
                 android:padding="8dp"
-                android:text="42008299"
                 android:maxLength="10"></EditText>
         </LinearLayout>
 
@@ -133,7 +129,6 @@
                 android:background="@drawable/vector"
                 android:padding="8dp"
                 android:hint="Ingrese sus dirección"
-                android:text="Santa Anita"
                 android:imeOptions="actionNext" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -149,7 +144,6 @@
                 android:hint="Ingrese un teléfono"
                 android:background="@drawable/vector"
                 android:padding="8dp"
-                android:text="979773864"
                 android:imeOptions="actionNext" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -179,7 +173,6 @@
                 android:drawableLeft="@drawable/ic_today"
                 android:hint="(*)"
                 android:imeOptions="actionNext"
-                android:text="24/09/1992"
                 android:inputType="textEmailAddress"></TextView>
 
         </LinearLayout>

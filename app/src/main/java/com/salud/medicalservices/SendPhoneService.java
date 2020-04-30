@@ -1,6 +1,7 @@
 package com.salud.medicalservices;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -22,6 +23,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.hbb20.CountryCodePicker;
 import com.salud.medicalservices.activitys.OtpActivity;
+import com.salud.medicalservices.activitys.RegisterActivity;
 import com.salud.medicalservices.utils.LoadingDialogCustom;
 import com.salud.medicalservices.utils.ShareDataRead;
 import com.salud.medicalservices.utils.ToastCustom;
@@ -29,6 +31,7 @@ import com.salud.medicalservices.utils.ToastCustom;
 import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class SendPhoneService extends AppCompatActivity {
 
@@ -37,6 +40,8 @@ public class SendPhoneService extends AppCompatActivity {
     private FirebaseUser mCurrentUser;
     private String mCompletePhoneNumber;
     private ProgressBar progressBar;
+
+    SweetAlertDialog pd;
 
     CountryCodePicker mCountryCode;
     EditText mPhoneNumber;
@@ -100,6 +105,7 @@ public class SendPhoneService extends AppCompatActivity {
                     loadingDialogCustom = new LoadingDialogCustom(SendPhoneService.this, "Enviando Código");
                     loadingDialogCustom.startLoadingDialog();
 
+
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(
                             mCompletePhoneNumber,
                             60,
@@ -122,7 +128,7 @@ public class SendPhoneService extends AppCompatActivity {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
 
-
+                loadingDialogCustom.dismissDialog();
             }
 
             @Override
@@ -130,14 +136,28 @@ public class SendPhoneService extends AppCompatActivity {
                 Log.w(TAG, "onVerificationFailed", e);
 
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                    ToastCustom.showToast(1, SendPhoneService.this,
-                            SendPhoneService.this.getLayoutInflater(),
-                            "Teléfono inválido. Verifica que el código del país y el número sean correctos.",
-                            R.color.deep_orange_800);
+                    //ToastCustom.showToast(1, SendPhoneService.this,
+                      //      SendPhoneService.this.getLayoutInflater(),
+                        //    "Teléfono inválido. Verifica que el código del país y el número sean correctos.",
+                          //  R.color.deep_orange_800);
+                    loadingDialogCustom.dismissDialog();
+                    pd = new SweetAlertDialog(SendPhoneService.this, SweetAlertDialog.WARNING_TYPE);
+                    pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
+                    pd.setContentText("Teléfono inválido. Verifica que el código del país y el número sean correctos.");
+                    pd.setCancelable(false);
+                    pd.show();
+                    return;
                 } else if (e instanceof FirebaseTooManyRequestsException) {
                     // Toast.makeText(LoginActivity.this, "The SMS quota for the project has been exceeded", Toast.LENGTH_SHORT).show();
                     // The SMS quota for the project has been exceeded
                     // ...
+                    loadingDialogCustom.dismissDialog();
+                    pd = new SweetAlertDialog(SendPhoneService.this, SweetAlertDialog.WARNING_TYPE);
+                    pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
+                    pd.setContentText("Ha sobrepasado el limite de envios diarios");
+                    pd.setCancelable(false);
+                    pd.show();
+                    return;
                 }
 
                 loadingDialogCustom.dismissDialog();
@@ -160,9 +180,7 @@ public class SendPhoneService extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (mCurrentUser != null) {
-            sendUserToHome();
-        }
+
     }
 
     private void enableButton() {
@@ -183,11 +201,5 @@ public class SendPhoneService extends AppCompatActivity {
         }
     }
 
-    private void sendUserToHome() {
-        Intent homeIntent = new Intent(SendPhoneService.this, MainActivity.class);
-        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(homeIntent);
-        finish();
-    }
+
 }

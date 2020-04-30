@@ -1,6 +1,7 @@
 package com.salud.medicalservices.activitys;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ import com.salud.medicalservices.utils.ShareDataRead;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +43,8 @@ public class OtpActivity extends AppCompatActivity {
     private String mAuthVerificationId;
     Button mBtnVerify;
     EditText mOtpText;
+
+    SweetAlertDialog pd;
 
     String firstName, lastName, email, identityDocument, address, phone, birthDate, codigoDepartamento, codigoDistrito, codigoPais, genero, userRole, codigoProvincia;
     String password;
@@ -67,7 +71,7 @@ public class OtpActivity extends AppCompatActivity {
             email = bundle.getString("email");
             identityDocument = bundle.getString("identityDocument");
             address = bundle.getString("address");
-           // phone = bundle.getString("phone");
+            // phone = bundle.getString("phone");
             birthDate = bundle.getString("birthDate");
             genero = bundle.getString("genero");
             codigoPais = bundle.getString("codigoPais");
@@ -83,7 +87,7 @@ public class OtpActivity extends AppCompatActivity {
         mCurrentUser = mFirebaseAuth.getCurrentUser();
         mAuthVerificationId = getIntent().getStringExtra("AuthCredentials");
 
-       final String phoneNumber = getIntent().getStringExtra("phone");
+        final String phoneNumber = getIntent().getStringExtra("phone");
         Log.v("numero", mAuthVerificationId);
 
         mBtnVerify.setOnClickListener(new View.OnClickListener() {
@@ -118,16 +122,23 @@ public class OtpActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
-                          //  validarServicio();
+                              validarServicio();
 
-                            Toast.makeText(OtpActivity.this, phoneNumber, Toast.LENGTH_SHORT).show();
+                            //  Toast.makeText(OtpActivity.this, phoneNumber, Toast.LENGTH_SHORT).show();
 
 //                            Intent registerIntent = new Intent(OtpActivity.this, ContentMainActivity.class);
 //                            registerIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                            registerIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                            startActivity(registerIntent);
                         } else {
-                            Toast.makeText(OtpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(OtpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+
+                            pd = new SweetAlertDialog(OtpActivity.this, SweetAlertDialog.WARNING_TYPE);
+                            pd.getProgressHelper().setBarColor(Color.parseColor("#03A9F4"));
+                            pd.setContentText(task.getException().getMessage());
+                            pd.setCancelable(false);
+                            pd.show();
+                            return;
                         }
                         mBtnVerify.setEnabled(true);
                         loadingDialogCustom.dismissDialog();
@@ -166,7 +177,7 @@ public class OtpActivity extends AppCompatActivity {
                         String cadena_respuesta = informacion.string();
                         Log.v("RsptaResponsePost", cadena_respuesta);
 
-                        ShareDataRead.guardarValor(getApplicationContext(), "firstName", firstName);
+                        /*ShareDataRead.guardarValor(getApplicationContext(), "firstName", firstName);
                         ShareDataRead.guardarValor(getApplicationContext(), "lastName", lastName);
                         ShareDataRead.guardarValor(getApplicationContext(), "email", email);
                         ShareDataRead.guardarValor(getApplicationContext(), "identityDocument", identityDocument);
@@ -181,8 +192,28 @@ public class OtpActivity extends AppCompatActivity {
                         ShareDataRead.guardarValor(getApplicationContext(), "password", password);
                         ShareDataRead.guardarValor(getApplicationContext(), "userRole", userRole);
 
-                        Intent intent = new Intent(OtpActivity.this, LoginActivity.class);
-                        startActivity(intent);
+                         */
+
+                        new SweetAlertDialog(OtpActivity.this,SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Informativo")
+                                .setContentText("Celular valdado")
+                                .setConfirmText("Continuar")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+                                        Intent intent = new Intent(OtpActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+
+                                        //Intent registerIntent = new Intent(OtpActivity.this, LoginActivity.class);
+                                        //startActivity(registerIntent);
+                                        //finish();
+//
+                                    }
+                                }).show();
+
+
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -193,7 +224,13 @@ public class OtpActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("infoResponseErrorPost", t.getMessage());
+
+                pd = new SweetAlertDialog(OtpActivity.this, SweetAlertDialog.WARNING_TYPE);
+                pd.getProgressHelper().setBarColor(Color.parseColor("#03A9F4"));
+                pd.setContentText(t.getMessage().toString());
+                pd.setCancelable(false);
+                pd.show();
+                return;
             }
         });
     }
@@ -201,18 +238,10 @@ public class OtpActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (mCurrentUser != null) {
-            sendUserToHome();
-        }
+
     }
 
-    private void sendUserToHome() {
-        Intent homeIntent = new Intent(OtpActivity.this, ContentMainActivity.class);
-        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(homeIntent);
-        finish();
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
